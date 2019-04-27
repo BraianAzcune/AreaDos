@@ -35,7 +35,7 @@ function comprobarUsuarioLogeado(callback,manual=false,mostrarModal){
             $.ajax({
                 
                 type: "POST",  
-                url: direccionIp()+"AreaDosV1.3/VerificarUsuario.php",
+                url: direccionIp()+"AreaDos/VerificarUsuario.php",
                 dataType: "text",
                 data: datos, 
                 success: function(rta){  

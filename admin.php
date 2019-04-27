@@ -2,10 +2,22 @@
 
     session_start();
     
+    
     if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=true)) {
         
-            header('Location: Ingresar.php');
+        header('Location: Ingresar.php');
+        
     }
+    //Esta iniciada la sesion
+    $sesion=true;
+    
+    //No está iniciada la sesion
+    if(empty($_SESSION['email']))
+    {
+        $sesion=false;
+    }
+    
+    
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +120,9 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="#">Datos Personales</a>
-                                    <a class="dropdown-item" href="#">Cambiar Contrase&ntildea</a>
+                                    <a class="dropdown-item" href="#">
+                                        <p data-toggle="modal" data-target="#ModalCambiarContrasena">Cambiar Contrase&ntildea</p>
+                                    </a>
                                     <a class="dropdown-item" href="#">Cerrar Sesión</a>
                                 </div>
                             </li>
@@ -285,6 +299,46 @@
                     </div>
                 </div>
             </div>
+            <!------------------------FIN MODAL PARA CARGAR USUARIOS---------------->
+            <!--Modal para cambiar contraseña-->
+            <!-- Modal -->
+            <div class="modal fade" id="ModalCambiarContrasena">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Cambiar contraseña</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body"> 
+                            <?php
+                                if($sesion==false)        
+                                { 
+                                    echo '<div class="form-group">
+                                                  <label for="email">Ingrese su email:</label>
+                                                  <input type="text" class="form-control" name="email">
+                                          </div>';
+                                }
+                            ?>
+                            
+                            <div class="form-group">
+                                <label for="contraseña">Ingrese contrase&ntildea actual:</label>
+                                <input type="text" class="form-control" name="contrasena">
+                            </div>
+                            <div class="form-group">
+                                <label for="nuevaContraseña">Ingrese nueva contrase&ntildea:</label>
+                                <input type="text" class="form-control" name="nuevaContrasena">
+                            </div>                        
+                        </div>
+                        <!--footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="cambiarContrasena">Cambiar contraseña</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!------------------------FIN MODAL PARA CAMBIAR CONTRASEÑA---------------->
         </div>
     </div>
 </body>
