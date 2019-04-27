@@ -123,7 +123,7 @@
                                     <a class="dropdown-item" href="#">
                                         <p data-toggle="modal" data-target="#ModalCambiarContrasena">Cambiar Contrase&ntildea</p>
                                     </a>
-                                    <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                                    <a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
                                 </div>
                             </li>
                             <!--Aca podrian ir un item para la barra de navegacion-->
@@ -355,5 +355,6 @@
 <script src="assets/js/now-ui-dashboard.js?v=1.0.1"></script>
 <script src="js/admin.js"></script>
 <script src="js/notify.js"></script>
+<script src="js/cerrarSesion.js"></script>
 
 </html>
