@@ -9,15 +9,15 @@
 function seleccionarCancha() {
   var id_cancha;
   var filtrarPor = document.getElementById("filtrado").value;
- if(filtrarPor === 'Cancha Roja') {
+  if(filtrarPor == 'Cancha Roja'){
     id_cancha=1;
     getTurnosPorCancha(id_cancha);
-
-  } else if (filtrarPor === 'Cancha Verde') {
-      id_cancha=2;
+  }
+  else if (filtrarPor == 'Cancha Verde') {
+    id_cancha=2;
     getTurnosPorCancha(id_cancha);
-
-  } else if (filtrarPor === 'Cancha Azul') {
+   }
+    else if (filtrarPor == 'Cancha Azul') {
     id_cancha=3;
     getTurnosPorCancha(id_cancha);
     }
@@ -27,11 +27,12 @@ function seleccionarCancha() {
 //------------------------------------Funcion que muestra los turnos tanto disponibles , en espera o ocupados
 function getTurnosPorCancha(id_cancha) {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDosV1.3/levantarTurnoPorCancha.php",
+  $.post("http://localhost/AreaDos/levantarTurnoPorCancha.php",
     {
       fecha: fecha,
-      cancha: id_cancha,
-    },function (data,nombre) {
+      cancha: id_cancha
+    },
+    function (data,status) {
       if (data == -1) {
         $(".contenedor").empty();
       } else {
@@ -87,7 +88,7 @@ function RealizarSolicitud(hora) {
   else if (id_cancha === 'Cancha Azul') {
     cancha = 3;
   }
-  $.post("http://localhost/AreaDosV1.3/registrarSolicitud.php",
+  $.post("http://localhost/AreaDos/registrarSolicitud.php",
     {
       hora: hora,
       cancha: cancha,
@@ -114,7 +115,7 @@ $("#TurnosPendientes").click(function(){
     $("#titulo_Pendientes").html("Mis Turnos Pendientes").css("text-decoration","underline");
     $("#titulo_Pendientes").show();
      $(".contenedor").empty();
-     $.get("http://localhost/AreaDosV1.3/TurnosPendientes.php", function(data, status){
+     $.get("http://localhost/AreaDos/TurnosPendientes.php", function(data, status){
       if(data==-1)
       {
         alert("No tienes turnos en estado PENDIENTE");

@@ -32,7 +32,7 @@ $("#cargarTurno").click(function () {
     cancha=3;
   }
 
-  $.post("http://localhost/AreaDosV1.3/pedirTurno.php",
+  $.post("http://localhost/AreaDos/pedirTurno.php",
     {
       nombre: nombre,
       apellido: apellido,
@@ -58,7 +58,7 @@ $("#cargarUsuario").click(function () {
   var email = $("input[name='Email']").val();
   var contraseña = $("input[name='contraseña']").val();
 
-  $.post("http://localhost/AreaDosV1.3/registrarUsuario.php",
+  $.post("http://localhost/AreaDos/registrarUsuario.php",
     {
       nombre: nombre,
       apellido: apellido,
@@ -77,10 +77,34 @@ $("#cargarUsuario").click(function () {
     });
 });
 
+//---------------------------------Cambiar contraseña----------------------------------------
+//No se si fallara porque el mail a veces esta vacio, llenarlo con basura en admin.php
+$("#cambiarContrasena").click(function () {
+  var email = $("input[name='email']").val();
+  var contrasena = $("input[name='contrasena']").val();
+  var nuevaContrasena = $("input[name='nuevaContrasena']").val();
+
+  $.post("http://localhost/AreaDos/cambiarContrasena.php",
+    {
+      email: email,
+      contrasena: contrasena,
+      nuevaContrasena: nuevaContrasena
+    },
+    function (data, status) {
+      if (data == -1) {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("No se pudo modificar la contraseña", "danger", { position: 'left' });
+      } else {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Contraseña modificada con Éxito", "success", { position: 'left' });
+      }
+    });
+});
+
 //---------------------------archiVo php para obtener los turnos de la respectiva fecha--------------------------------
 function Buscarturnos() {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDosV1.3/levantarTurno.php",
+  $.post("http://localhost/AreaDos/levantarTurno.php",
     {
       fecha: fecha
     },
@@ -101,7 +125,7 @@ function Buscarturnos() {
 
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
 function eliminar_turno(id_cancha,hora,fecha) {
-  $.post("http://localhost/AreaDosV1.3/borrarTurno.php",
+  $.post("http://localhost/AreaDos/borrarTurno.php",
     {
       id: id_cancha,
       hora:hora,
@@ -150,7 +174,7 @@ function seleccionarCancha() {
 
 function getTurnosPorCancha(id_cancha) {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDosV1.3/levantarTurnoPorCancha.php",
+  $.post("http://localhost/AreaDos/levantarTurnoPorCancha.php",
     {
       fecha: fecha,
       cancha: id_cancha
@@ -225,7 +249,7 @@ function Obtener_Fecha_input() {
     cancha_id=3;
 }
 
- $.post("http://localhost/AreaDosV1.3/buscarHorasDisponibles.php",
+ $.post("http://localhost/AreaDos/buscarHorasDisponibles.php",
     {
       fecha: fecha,
       id_cancha: cancha_id

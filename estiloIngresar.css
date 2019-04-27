@@ -1,0 +1,12 @@
+ 
+body{
+	background-image:url(IMG/fondo1.jpg);
+	 height: 100vh;
+ 	 width: 100%;
+}
+
+ @media screen and (max-width: 800px) {
+  body {
+    background-image:none;
+  }
+}
