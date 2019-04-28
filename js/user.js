@@ -23,6 +23,40 @@ function seleccionarCancha() {
     }
 };
 
+//---------------------------------Cambiar contraseña----------------------------------------
+//No se si fallara porque el mail a veces esta vacio, llenarlo con basura en admin.php
+$("#cambiarContrasena").click(function () {
+  
+  var contrasena = $("input[name='contrasena']").val();
+  var nuevaContrasena = $("input[name='nuevaContrasena']").val();
+
+
+  $.post("/AreaDos/cambiarContrasena.php",
+    {
+      
+      contrasena: contrasena,
+      nuevaContrasena: nuevaContrasena
+    },
+    function (data, status) {
+      
+      if (data == -1) {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("No se pudo modificar la contraseña", "danger", { position: 'left' });
+      } else if(data==1){
+        //$.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        //$.notify("Contraseña modificada con Éxito", "success", { position: 'left' });
+       
+        //Si se cambio la contraseña se cierra la sesion
+        $.getScript("/AreaDos/js/cerrarSesion.js", function (script, textStatus, jqXHR) {
+              cerrarSesion();          
+        });
+
+      }
+    });
+});
+
+
+
 
 //------------------------------------Funcion que muestra los turnos tanto disponibles , en espera o ocupados
 function getTurnosPorCancha(id_cancha) {

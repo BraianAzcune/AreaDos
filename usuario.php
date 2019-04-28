@@ -17,12 +17,12 @@ class Usuario{
     }
     function verificarUsuario($email,$pass){
         $con=ConexionBD::getConexion();
-        $sql="SELECT * USUARIO WHERE email='$email' AND password='$pass';";
+        $sql="SELECT * FROM USUARIO WHERE email='$email' AND password='$pass';";
         return $con->existe($sql);
     }
     function verificarContraseña($email,$pass){
         $con=ConexionBD::getConexion();
-        $sql="SELECT * USUARIO WHERE email='$email' AND password='$pass';";
+        $sql="SELECT * FROM USUARIO WHERE email='$email' AND password='$pass';";
         return $con->existe($sql);
     }
     function cambiarContraseña($email,$pass){

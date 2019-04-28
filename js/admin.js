@@ -1,3 +1,4 @@
+
 var id_intervalo=null;
  $(document).ready(function(){
   
@@ -80,23 +81,31 @@ $("#cargarUsuario").click(function () {
 //---------------------------------Cambiar contraseña----------------------------------------
 //No se si fallara porque el mail a veces esta vacio, llenarlo con basura en admin.php
 $("#cambiarContrasena").click(function () {
-  var email = $("input[name='email']").val();
+  
   var contrasena = $("input[name='contrasena']").val();
   var nuevaContrasena = $("input[name='nuevaContrasena']").val();
 
-  $.post("http://localhost/AreaDos/cambiarContrasena.php",
+
+  $.post("/AreaDos/cambiarContrasena.php",
     {
-      email: email,
+      
       contrasena: contrasena,
       nuevaContrasena: nuevaContrasena
     },
     function (data, status) {
+      
       if (data == -1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("No se pudo modificar la contraseña", "danger", { position: 'left' });
-      } else {
-        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("Contraseña modificada con Éxito", "success", { position: 'left' });
+      } else if(data==1){
+        //$.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        //$.notify("Contraseña modificada con Éxito", "success", { position: 'left' });
+       
+        //Si se cambio la contraseña se cierra la sesion
+        $.getScript("/AreaDos/js/cerrarSesion.js", function (script, textStatus, jqXHR) {
+              cerrarSesion();          
+        });
+
       }
     });
 });

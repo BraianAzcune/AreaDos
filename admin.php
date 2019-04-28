@@ -7,16 +7,7 @@
         
         header('Location: Ingresar.php');
         
-    }
-    //Esta iniciada la sesion
-    $sesion=true;
-    
-    //No está iniciada la sesion
-    if(empty($_SESSION['email']))
-    {
-        $sesion=false;
-    }
-    
+    } 
     
 ?>
 
@@ -312,15 +303,7 @@
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body"> 
-                            <?php
-                                if($sesion==false)        
-                                { 
-                                    echo '<div class="form-group">
-                                                  <label for="email">Ingrese su email:</label>
-                                                  <input type="text" class="form-control" name="email">
-                                          </div>';
-                                }
-                            ?>
+                            
                             
                             <div class="form-group">
                                 <label for="contraseña">Ingrese contrase&ntildea actual:</label>

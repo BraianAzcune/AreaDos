@@ -197,10 +197,6 @@
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="email">Ingrese su email:</label>
-                                <input type="text" class="form-control" name="email">
-                            </div>
-                            <div class="form-group">
                                 <label for="contraseña">Ingrese contrase&ntildea actual:</label>
                                 <input type="text" class="form-control" name="contrasena">
                             </div>
