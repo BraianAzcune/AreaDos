@@ -12,7 +12,7 @@ class ConexionBD {
     private static $_instance; //Instancia unica de BD
     private $_host = "localhost";
     private $_username = "root";
-    private $_password = "36313941"; //contraseña BD
+    private $_password = ""; //contraseña BD
     private $_database = "AreaDos";
     /*
       Get an instance of the Database
@@ -65,7 +65,7 @@ class ConexionBD {
     */
     public function update($consulta) {
         if ($this->_connection->query($consulta) === TRUE) {
-            echo "update successfully";
+            //echo "update successfully"; No es necesario notificar cosas correctas.
         } else {
             echo "Error: " . $consulta . "<br>" . $this->_connection->error;
         }
@@ -108,7 +108,7 @@ class ConexionBD {
     * @return boolean verdadero si existe al menos una fila
     */
     public function existe($consulta) {
-        $result = -1;
+        $result = false;
         if ($resultado = $this->_connection->query($consulta)) {
             $row_cnt = $resultado->num_rows;
             if ($row_cnt > 0) {
