@@ -33,7 +33,7 @@ $("#cargarTurno").click(function () {
     cancha=3;
   }
 
-  $.post("http://localhost/AreaDos/pedirTurno.php",
+  $.post("pedirTurno.php",
     {
       nombre: nombre,
       apellido: apellido,
@@ -59,7 +59,7 @@ $("#cargarUsuario").click(function () {
   var email = $("input[name='Email']").val();
   var contraseña = $("input[name='contraseña']").val();
 
-  $.post("http://localhost/AreaDos/registrarUsuario.php",
+  $.post("registrarUsuario.php",
     {
       nombre: nombre,
       apellido: apellido,
@@ -86,7 +86,7 @@ $("#cambiarContrasena").click(function () {
   var nuevaContrasena = $("input[name='nuevaContrasena']").val();
 
 
-  $.post("/AreaDos/cambiarContrasena.php",
+  $.post("cambiarContrasena.php",
     {
       
       contrasena: contrasena,
@@ -113,7 +113,7 @@ $("#cambiarContrasena").click(function () {
 //---------------------------archiVo php para obtener los turnos de la respectiva fecha--------------------------------
 function Buscarturnos() {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDos/levantarTurno.php",
+  $.post("levantarTurno.php",
     {
       fecha: fecha
     },
@@ -134,7 +134,7 @@ function Buscarturnos() {
 
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
 function eliminar_turno(id_cancha,hora,fecha) {
-  $.post("http://localhost/AreaDos/borrarTurno.php",
+  $.post("borrarTurno.php",
     {
       id: id_cancha,
       hora:hora,
@@ -183,7 +183,7 @@ function seleccionarCancha() {
 
 function getTurnosPorCancha(id_cancha) {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDos/levantarTurnoPorCancha.php",
+  $.post("levantarTurnoPorCancha.php",
     {
       fecha: fecha,
       cancha: id_cancha
@@ -258,7 +258,7 @@ function Obtener_Fecha_input() {
     cancha_id=3;
 }
 
- $.post("http://localhost/AreaDos/buscarHorasDisponibles.php",
+ $.post("buscarHorasDisponibles.php",
     {
       fecha: fecha,
       id_cancha: cancha_id

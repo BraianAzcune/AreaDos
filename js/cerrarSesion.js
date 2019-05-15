@@ -9,7 +9,7 @@ function cerrarSesion(){
     
     $.ajax({
         type: 'GET',
-        url: '/AreaDos/cerrarSesion.php',
+        url: 'cerrarSesion.php',
         success: function (response) {
             
             window.location.href=response;    

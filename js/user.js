@@ -31,7 +31,7 @@ $("#cambiarContrasena").click(function () {
   var nuevaContrasena = $("input[name='nuevaContrasena']").val();
 
 
-  $.post("/AreaDos/cambiarContrasena.php",
+  $.post("cambiarContrasena.php",
     {
       
       contrasena: contrasena,
@@ -61,7 +61,7 @@ $("#cambiarContrasena").click(function () {
 //------------------------------------Funcion que muestra los turnos tanto disponibles , en espera o ocupados
 function getTurnosPorCancha(id_cancha) {
   var fecha = Obtener_Fecha_input();
-  $.post("http://localhost/AreaDos/levantarTurnoPorCancha.php",
+  $.post("levantarTurnoPorCancha.php",
     {
       fecha: fecha,
       cancha: id_cancha
@@ -122,7 +122,7 @@ function RealizarSolicitud(hora) {
   else if (id_cancha === 'Cancha Azul') {
     cancha = 3;
   }
-  $.post("http://localhost/AreaDos/registrarSolicitud.php",
+  $.post("registrarSolicitud.php",
     {
       hora: hora,
       cancha: cancha,
@@ -149,7 +149,7 @@ $("#TurnosPendientes").click(function(){
     $("#titulo_Pendientes").html("Mis Turnos Pendientes").css("text-decoration","underline");
     $("#titulo_Pendientes").show();
      $(".contenedor").empty();
-     $.get("http://localhost/AreaDos/TurnosPendientes.php", function(data, status){
+     $.get("TurnosPendientes.php", function(data, status){
       if(data==-1)
       {
         alert("No tienes turnos en estado PENDIENTE");

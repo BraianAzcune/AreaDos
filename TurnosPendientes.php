@@ -4,8 +4,9 @@
 
     include('./turno.php');
 
-    $email=$_SESSION['email'];
-    $t= new Turno();
-    $t->mostrarTurnosPendientes($email);
+    //$email=$_SESSION['email'];
+    //$t= new Turno();
+    //$t->mostrarTurnosPendientes($email);
     
+    echo -1;
  ?>

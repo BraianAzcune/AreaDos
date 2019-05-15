@@ -9,7 +9,7 @@
     
     $email= filter_input(INPUT_POST, 'email');
     $pass=filter_input(INPUT_POST, 'pass');
-    $url = "http://localhost/AreaDos/Ingresar.php";
+    $url = "Ingresar.php";
     
     
    $consulta = "SELECT email,password,tipo_usuario FROM usuario WHERE email = '$email' AND password = '$pass' ";
@@ -25,12 +25,12 @@
         if($resp[0][2] == true)
         {
             
-            $url = "http://localhost/AreaDos/admin.php";
+            $url = "admin.php";
 
         }
         elseif ($resp[0][2] == false) {
            
-            $url = "http://localhost/AreaDos/user.php";
+            $url = "user.php";
         }
 
     }

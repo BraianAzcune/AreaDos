@@ -1,20 +1,4 @@
-/*
-autor=Braian Azcune
-Descripcion=
-Este codigo verifica que el usuario puede entrar a admin o usuario .html segun corresponda.
-En caso que no sea asi lo redirecciona a ingresar.
 
-Argumento Opcional=
-Se acepta como argumento opcional una funcion, que se ejecutara
-antes de realizar el redireccionamiento.
-
-A TENER EN CUENTA=
-si el usuario quiere entrar a una pagina, distinta de usuario.html, admin o ingresar. Lo redireccionara
-a alguna de esas paginas segun corresponda.
-POSIBLE SOLUCION=
-poner los .html, en carpetas, y que se realice una comprobacion de si puede entrar a esa carpeta segun corresponda
-a usuario, admin.
-*/
          
         
 
@@ -35,7 +19,7 @@ function comprobarUsuarioLogeado(callback,manual=false,mostrarModal){
             $.ajax({
                 
                 type: "POST",  
-                url: direccionIp()+"AreaDos/VerificarUsuario.php",
+                url:"VerificarUsuario.php",
                 dataType: "text",
                 data: datos, 
                 success: function(rta){  
@@ -77,10 +61,6 @@ function redireccionar(rta) {
 
 
 
-//Deberia ser incluido en un .js aparte, para ser llamado por otro.
-function direccionIp(){
-    return "http://localhost/"
-}
 
 
 function removerDatos(){
