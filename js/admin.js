@@ -10,6 +10,7 @@ var id_intervalo=null;
 });
 
 $("#Ver_Turnos").click(function () {
+  stopSetInterval(id_intervalo);
   $("#titulo_estadistica").hide();
   $("#contenedor_canchasYfecha").show();
   $("#agregar_turno").show();
@@ -295,3 +296,38 @@ $("#agregar_turno").click(function(){
     updateModal();
 
 });
+
+
+
+$("#solicitudes").click(function(){
+  stopSetInterval(id_intervalo);
+
+  //borramos lo que tiene el contenedor compartido.
+  $(".contenedor").empty();
+
+  //Ocultar cosas del boton ver turnos
+  $("#contenedor_canchasYfecha").hide();
+  $("#agregar_turno").hide();
+  
+  
+  //ocultar cosas del boton estadisticas
+  $("#titulo_estadistica").hide();
+
+  //ejecutar ajax para refrescar solicitudes nuevas
+  id_intervalo=runSetInterval(actualizarSolicitudes);
+});
+
+function actualizarSolicitudes(){
+  var fecha = Obtener_Fecha_input();
+  $.post("levantarSolicitudes.php",
+  {
+    fecha: fecha
+  },
+    function (data) {
+  
+      $(".contenedor").empty();
+      $(".contenedor").append(data);
+      
+    });
+
+}
