@@ -5,7 +5,7 @@
     
     if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=true)) {
         
-        header('Location: Ingresar.php');
+        header('Location: index.php');
         
     } 
     
