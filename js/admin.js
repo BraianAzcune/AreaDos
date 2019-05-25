@@ -9,7 +9,7 @@ var id_intervalo=null;
   
 });
 
-$("#Ver_Turnos").click(function () {
+$("#ver_turnos").click(function () {
   $("#titulo_estadistica").hide();
   $("#contenedor_canchasYfecha").show();
   $("#agregar_turno").show();

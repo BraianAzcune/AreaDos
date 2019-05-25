@@ -39,7 +39,7 @@
                     <li>
                         <a href="#">
                             <i class=""></i>
-                            <p id="Ver_Turnos">Ver Turnos</p>
+                            <p id="ver_turnos">Ver Turnos</p>
                         </a>
                     </li>
                       <li>

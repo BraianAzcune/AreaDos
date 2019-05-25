@@ -45,13 +45,19 @@
                     <li>
                         <a href="#">
                             <i class=""></i>
-                            <p id="Ver_Turnos">Ver Turnos</p>
+                            <p id="ver_turnos">Ver Turnos</p>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <i class=""></i>
                             <p data-toggle="modal" data-target="#ModalUsuario">Cargar Usuarios</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class=""></i>
+                            <p id="solicitudes">Solicitudes</p>
                         </a>
                     </li>
                      <li>
@@ -137,10 +143,9 @@
                         <!--comienzo Carta-->
                         <div class="card">
                             <div id="turnos" class="card-header clearfix" style="display: flex; flex-direction: row; justify-content: center">
-                                  <!--<h4 id="titulo_estadistica" class="card-title text-center" ></h4>-->
                                 <div style="display: flex; flex-direction: row; justify-content: center">
                                     
-                                        <div style="display: flex; flex-direction:column">
+                                        <div id="selectFecha" style="display: flex; flex-direction:column">
                                             <label for="sel1" style="font-size:18px;"> Fecha:</label>
                                             <input style="padding:8px;" type="date" name="dias" value=""
                                                 data-toggle="tooltip"
@@ -148,8 +153,7 @@
                                                 onchange="Buscarturnos()">
                                         </div>
                                         <div class="col-md-2"></div>
-                                        <div>
-                                            <div class="form-group">
+                                            <div id="filtrarColor" class="form-group">
                                                 <label for="sel1" style="font-size:18px;"> Filtrar:</label>
                                                 <select class="form-control" onchange="seleccionarCancha()"
                                                     id="filtrado">
@@ -160,18 +164,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        </div>
-                                    
-                            </div>
+                                </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8">
+                                        <!--Aca se cargan todo los datos que provienen de la base de datos-->
                                         <div class="contenedor">
-
-
-
-                                            
+                                        
                                         </div>
                                     </div>
                                 </div>
