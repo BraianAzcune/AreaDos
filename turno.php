@@ -204,7 +204,7 @@ class Turno
                     <thead>
                         <tr style='display: flex; flex-direction:column;'>
                             <th class='text-primary' style='font-weight:bold; display: flex; flex-direction:row; justify-content:space-around'>
-                            <div style='width:100%; display:flex; justify-content:center;'>    
+                            <div style='width:100%; display:flex; justify-content:center;'>
                                 <p>Hora</p>
                             </div>
                             <div style='width:100%; display:flex; justify-content:center;'>
