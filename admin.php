@@ -147,10 +147,10 @@
                                                 title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
                                                 onchange="Buscarturnos()">
                                         </div>
-                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2"></div>
                                         <div>
                                             <div class="form-group">
-                                                <label for="sel1" style="font-size:18px;"> Filtrado:</label>
+                                                <label for="sel1" style="font-size:18px;"> Filtrar:</label>
                                                 <select class="form-control" onchange="seleccionarCancha()"
                                                     id="filtrado">
                                                     <option selected="selected">Todos</option>
