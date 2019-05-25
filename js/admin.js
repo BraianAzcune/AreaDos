@@ -11,8 +11,8 @@ var id_intervalo=null;
 
 $("#Ver_Turnos").click(function () {
   stopSetInterval(id_intervalo);
-  $("#titulo_estadistica").hide();
-  $("#contenedor_canchasYfecha").show();
+  //$("#titulo_estadistica").hide();//Se comento en admin.php
+  //$("#contenedor_canchasYfecha").show();
   $("#agregar_turno").show();
   id_intervalo=runSetInterval(Buscarturnos);
 });
@@ -202,11 +202,11 @@ function getTurnosPorCancha(id_cancha) {
 
 $("#estadisticas").click(function(){
     stopSetInterval(id_intervalo);
-    $("#contenedor_canchasYfecha").hide();
+    //$("#contenedor_canchasYfecha").hide();
     $("#agregar_turno").hide();
 
-    $("#titulo_estadistica").show();
-    $("#titulo_estadistica").html("Estadisticas").css("text-decoration","underline");
+    //$("#titulo_estadistica").show();
+    //$("#titulo_estadistica").html("Estadisticas").css("text-decoration","underline");
     $(".contenedor").empty();
 });
 
@@ -302,12 +302,12 @@ $("#solicitudes").click(function(){
   $(".contenedor").empty();
 
   //Ocultar cosas del boton ver turnos
-  $("#contenedor_canchasYfecha").hide();
+  //$("#contenedor_canchasYfecha").hide();
   $("#agregar_turno").hide();
   
   
   //ocultar cosas del boton estadisticas
-  $("#titulo_estadistica").hide();
+  //$("#titulo_estadistica").hide();
 
  
 
