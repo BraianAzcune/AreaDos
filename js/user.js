@@ -163,7 +163,7 @@ $("#TurnosPendientes").click(function(){
 
 });
 
-$("#Ver_Turnos").click(function () {
+$("#ver_turnos").click(function () {
   $(".contenedor").empty();
   $("#titulo_Pendientes").hide();
   $("#contenedor_canchasYfecha").show();
