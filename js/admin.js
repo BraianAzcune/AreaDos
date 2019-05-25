@@ -281,11 +281,6 @@ function Obtener_Fecha_input() {
 
             }
 
-        
-
-
-      
-
       }
     });
 
@@ -300,6 +295,7 @@ $("#agregar_turno").click(function(){
 
 
 $("#solicitudes").click(function(){
+  
   stopSetInterval(id_intervalo);
 
   //borramos lo que tiene el contenedor compartido.
@@ -312,6 +308,8 @@ $("#solicitudes").click(function(){
   
   //ocultar cosas del boton estadisticas
   $("#titulo_estadistica").hide();
+
+ 
 
   //ejecutar ajax para refrescar solicitudes nuevas
   id_intervalo=runSetInterval(actualizarSolicitudes);

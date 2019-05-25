@@ -5,7 +5,7 @@
         
     if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=true)) {
         
-        return "Error: falta de credenciales, no eres administrador"
+        return "Error: falta de credenciales, no eres administrador";
         
     } 
 
