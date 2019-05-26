@@ -246,16 +246,18 @@ class Turno
     function mostrarTurnosPendientes($email)
     {
         $con = ConexionBD::getConexion();
-        $sql = "SELECT cancha_id_cancha,hora,fecha FROM usuario_x_cancha WHERE usuario_email='$email' AND estado=0 ";
+        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 ";
         $respuesta = $con->recuperar($sql);
+
         //control de resultado
         if (empty($respuesta)){
-            return -1;
-        }else{
-
+            echo -1 ;
+        }else{  
+            $id=0;
             foreach ($respuesta as $turno_pendiente)
             {
-                echo "<div class='card'>
+                
+               echo "<div class='card' id=$id>
                     <div class='card-body'>
                        <div class='d-flex'>
                             <div class='p-2 mr-auto'>
@@ -263,19 +265,26 @@ class Turno
                            </div>
 
                             <div class='p-2'>
-                                <p class='card-title'>Hora:  $turno_pendiente[1] hs</p>
+                                <p class='card-title'>Hora:  $turno_pendiente[1]  hs</p>
                             </div>
+                            <div class='p-2'>
+                                <p id='' class='card-title'>Cancha: $turno_pendiente[3]</p>
+                            </div>
+
                         </div>
                             <p class='card-text' style='font-size:17px;'>Turno esperando respuesta</p>
-                            <a href='#' class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
+                            <a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
                          
                     </div>
 
-                </div>";
+                </div>"; 
+                $id++;
+
             }
 
         }
 
 
     }
+}
 }

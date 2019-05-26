@@ -169,3 +169,26 @@ $("#Ver_Turnos").click(function () {
   $("#contenedor_canchasYfecha").show();
   id_intervalo=runSetInterval(seleccionarCancha);
 });
+
+function eliminar_turno(id_cancha,hora,fecha,id) {
+  $.post("borrarTurno.php",
+    {
+      id: id_cancha,
+      hora:hora,
+      fecha:fecha
+
+    },
+    function (data, status) {
+      if (data == 1) {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Turno Eliminado", "warning", { position: 'left' });
+        // agrege esto
+       var stringid="#"+id;
+       $(stringid).remove();
+
+
+      } else {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Error al eliminar el turno", "success", { position: 'left' });
+      }});
+}
