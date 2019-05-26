@@ -1,12 +1,12 @@
 <?php
 
-    session_start();
-    
-    if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=false)) {
-        
-            header('Location: Ingresar.php');
-    }
-    
+session_start();
+
+if (!isset($_SESSION['email']) || ($_SESSION['tipo'] != false)) {
+
+    header('Location: Ingresar.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Area Dos</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -42,16 +41,16 @@
                             <p id="Ver_Turnos">Ver Turnos</p>
                         </a>
                     </li>
-                      <li>
+                    <li>
                         <a href="#">
                             <i class=""></i>
                             <p id="TurnosPendientes">Turnos Pendientes</p>
                         </a>
                     </li>
-                      <li>
+                    <li>
                         <a href="#">
                             <i class=""></i>
-                            <p id="">Mis Turnos</p>
+                            <p id="TurnosCorfirmados">Mis Turnos</p>
                         </a>
                     </li>
                 </ul>
@@ -71,8 +70,7 @@
                         </div>
                         <a class="navbar-brand" style="font-weight:bold; font-size:2.3em;">Area Dos</a>
                     </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -101,8 +99,7 @@
                             </li>
                             <!--Aca podrian ir un item para la barra de navegacion-->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <p style="font-weight:bold;">Mi Cuenta</p>
                                     <p>
                                         <span class="d-lg-none d-md-block">Mi Cuenta</span>
@@ -147,16 +144,12 @@
                                         <div class="col-md-2"></div>
                                         <div class="col-md-2">
                                             <label for="sel1" style="font-size:18px;"> Fecha:</label>
-                                            <input style="padding:8px;" type="date" name="dias" value=""
-                                                data-toggle="tooltip"
-                                                title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
-                                                onchange="seleccionarCancha()" />
+                                            <input style="padding:8px;" type="date" name="dias" value="" data-toggle="tooltip" title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!" onchange="seleccionarCancha()" />
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="sel1" style="font-size:18px;"> Filtrar por:</label>
-                                                <select class="form-control" onchange="seleccionarCancha()"
-                                                    id="filtrado">
+                                                <select class="form-control" onchange="seleccionarCancha()" id="filtrado">
                                                     <option selected="selected">Cancha Roja</option>
                                                     <option> Cancha Verde</option>
                                                     <option>Cancha Azul</option>
@@ -172,9 +165,9 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="contenedor">
-                                           
-                                            
-                                           
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -183,37 +176,37 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Modal para cambiar contraseña-->
-            <!-- Modal -->
-            <div class="modal fade" id="ModalCambiarContrasena">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Cambiar contraseña</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="contraseña">Ingrese contrase&ntildea actual:</label>
-                                <input type="text" class="form-control" name="contrasena">
+                <!-- Modal -->
+                <div class="modal fade" id="ModalCambiarContrasena">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Cambiar contraseña</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
-                            <div class="form-group">
-                                <label for="nuevaContraseña">Ingrese nueva contrase&ntildea:</label>
-                                <input type="text" class="form-control" name="nuevaContrasena">
-                            </div>                        
-                        </div>
-                        <!--footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="cambiarContrasena">Cambiar contraseña</button>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="contraseña">Ingrese contrase&ntildea actual:</label>
+                                    <input type="text" class="form-control" name="contrasena">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nuevaContraseña">Ingrese nueva contrase&ntildea:</label>
+                                    <input type="text" class="form-control" name="nuevaContrasena">
+                                </div>
+                            </div>
+                            <!--footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="cambiarContrasena">Cambiar contraseña</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!------------------------FIN MODAL PARA CAMBIAR CONTRASEÑA---------------->
-                
+                <!------------------------FIN MODAL PARA CAMBIAR CONTRASEÑA---------------->
+
                 <!--Comienzo del FOOTER-->
                 <footer class="footer">
                     <div class="copyright">
