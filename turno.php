@@ -204,7 +204,7 @@ class Turno
                     <thead>
                         <tr style='display: flex; flex-direction:column;'>
                             <th class='text-primary' style='font-weight:bold; display: flex; flex-direction:row; justify-content:space-around'>
-                            <div style='width:100%; display:flex; justify-content:center;'>    
+                            <div style='width:100%; display:flex; justify-content:center;'>
                                 <p>Hora</p>
                             </div>
                             <div style='width:100%; display:flex; justify-content:center;'>
@@ -242,7 +242,7 @@ class Turno
         }
         echo "</div></td></tr><tr><td></td></tr></tbody></div>";
     }
-
+//LADO USUARIO
     function mostrarTurnosPendientes($email)
     {
         $con = ConexionBD::getConexion();
@@ -276,4 +276,32 @@ class Turno
 
         }
     }
+
+
+    //el administrador usa este metodo para obtener todos los turnos no confirmados, (los que tienen estado=0)
+    //dada cierta fecha
+    function mostrarSolicitudes($fecha)
+    {
+        $con = ConexionBD::getConexion();
+        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND estado=0;";
+        $respuesta = $con->recuperar($sql);
+        //control de resultado
+        if (empty($respuesta)){
+            echo "NO HAY SOLICITUDES";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
+        }else{
+
+            foreach ($respuesta as $solicitud)
+            {
+                echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
+                contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
+                //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
+            }
+
+        }
+
+
+    }
+
+
+
 }

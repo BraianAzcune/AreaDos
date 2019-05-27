@@ -9,9 +9,9 @@ var id_intervalo=null;
   
 });
 
-$("#Ver_Turnos").click(function () {
-  $("#titulo_estadistica").hide();
-  $("#contenedor_canchasYfecha").show();
+$("#ver_turnos").click(function () {
+  stopSetInterval(id_intervalo);
+  $(".contenedor").empty();
   $("#agregar_turno").show();
   id_intervalo=runSetInterval(Buscarturnos);
 });
@@ -201,11 +201,9 @@ function getTurnosPorCancha(id_cancha) {
 
 $("#estadisticas").click(function(){
     stopSetInterval(id_intervalo);
-    $("#contenedor_canchasYfecha").hide();
+    
     $("#agregar_turno").hide();
 
-    $("#titulo_estadistica").show();
-    $("#titulo_estadistica").html("Estadisticas").css("text-decoration","underline");
     $(".contenedor").empty();
 });
 
@@ -280,11 +278,6 @@ function Obtener_Fecha_input() {
 
             }
 
-        
-
-
-      
-
       }
     });
 
@@ -295,3 +288,35 @@ $("#agregar_turno").click(function(){
     updateModal();
 
 });
+
+//-----------------------SOLICITUDES-----------------------------
+
+$("#solicitudes").click(function(){
+  
+  stopSetInterval(id_intervalo);
+
+  //borramos lo que tiene el contenedor compartido.
+  $(".contenedor").empty();
+
+  //Ocultar cosas del boton ver turnos
+  $("#agregar_turno").hide();
+  
+  
+  //ejecutar ajax para refrescar solicitudes nuevas
+  id_intervalo=runSetInterval(actualizarSolicitudes);
+});
+
+function actualizarSolicitudes(){
+  var fecha = Obtener_Fecha_input();
+  $.post("levantarSolicitudes.php",
+  {
+    fecha: fecha
+  },
+    function (data) {
+  
+      $(".contenedor").empty();
+      $(".contenedor").append(data);
+      
+    });
+
+}
