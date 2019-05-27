@@ -22,10 +22,9 @@ class Turno
         return $resultado;
     }
     //REGISTRAR SOLICITUD DE TURNO
-    function  registrarSolicitudDeTurno($email, $hora, $cancha, $fecha)
-    {
+    function  registrarSolicitudDeTurno($email, $hora, $cancha, $fecha){
         $con = ConexionBD::getConexion();
-        $sql = "INSERT INTO usuario_x_cancha (usuario_email,cancha_id_cancha,hora,fecha,estado) VALUES ('$email','$cancha','$hora','$fecha',0)";
+        $sql = "UPDATE usuario_x_cancha SET estado=1 WHERE usuario_email='$email' AND hora='$hora' AND cancha_id_cancha='$cancha' AND fecha='$fecha'";
         $resultado = $con->insertar($sql);
         return $resultado;
     }
@@ -114,13 +113,13 @@ class Turno
             foreach ($respuesta as $turno) {
                 $color = $turno[1];
                 if ($color == 1) {
-                      $color = "tomato";
+                      $color = "#EA2027";
                       $muestra_color="Roja";
                 } elseif ($color == 2) {
-                    $color = "MediumSeaGreen";
+                    $color = "#009432";
                     $muestra_color="Verde";
                 } else {
-                    $color = "blue";
+                    $color = "#0652DD";
                     $muestra_color="Azul";
                 }
                 echo "<tr><th scope='row' style='font-size:18px;color:$color'>$turno[2]</th>";
@@ -220,11 +219,13 @@ class Turno
         $muestra_color=null;
         $color = null;
         $con = ConexionBD::getConexion();
-        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND usuario_x_cancha.estado=0;";
+        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora,usuario.email FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND usuario_x_cancha.estado=0;";
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)){
-            echo "NO HAY SOLICITUDES";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
+            echo "<div style='display: flex; justify-content:center;'>
+                        <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
+                </div>";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
         }else{
             echo "<div class='table table-hover'>
                     <table class='table'>
@@ -257,12 +258,16 @@ class Turno
                 echo "<td style='font-size:18px; color:$color'>$solicitud[0]</td>";
                 echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
                     <td class='text-center'>
-                        <i class='fas fa-check-square'  style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
-                        <i class='fas fa-minus-square'  style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-check-square' onclick=registrarSolicitudDeTurno($solicitud[5], $solicitud[4], $solicitud[3], '$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
             echo "</tbody></table></div>";
+            //$solicitud[5]-> email
+            //$solicitud[4]-> hora
+            //$solicitud[3]-> id_cancha
+            
         }
             /*foreach ($respuesta as $solicitud){
                 echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
