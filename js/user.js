@@ -169,7 +169,7 @@ $("#Ver_Turnos").click(function () {
   $("#contenedor_canchasYfecha").show();
   id_intervalo = runSetInterval(seleccionarCancha);
 });
-
+//-----------------ELIMINAR TURNOS PENDIENTES-----------------------------
 function eliminar_turno(id_cancha, hora, fecha, id) {
   $.post("borrarTurno.php",
     {
@@ -193,6 +193,7 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
       }
     });
 }
+//---------------------VER TURNOS CONFIRMADOS-------------------------
 $("#TurnosCorfirmados").click(function () {
   stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
