@@ -39,8 +39,7 @@ class Turno
     }
 
     //MOSTRAR TODOS LOS TURNOS
-    function mostrarTurnos($fecha)
-    {
+    function mostrarTurnos($fecha){
         $muestra_color=null;
         $color = null;
         $respuesta = array();
@@ -52,72 +51,44 @@ class Turno
         if (empty($respuesta)){ //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
                 return -1;
             } else {
-            echo "<div class='table-responsive'>
-                                    <table class='table'>
-                                        <thead class='text-primary'>
-                                            <th style='font-weight:bold;'>
-                                                Hora
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                            Reserva
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                               Cancha
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                               Acción
-                                            </th>
-                                        </thead>";
-            echo "<tbody>";
+            echo "<div class='table table-hover'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Reserva</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
+                                <th scope='col'></th>
+                            </tr>
+                        </thead>
+                        <tbody>";
             //comienzo foreach
-
             foreach ($respuesta as $turno) {
-                echo "<tr>
-                        <td>";
-                echo "<p>";
-                echo $turno[2];
-                echo "</p>";
-                echo "</td>";
-
                 $color = $turno[1];
                 if ($color == 1) {
-                      $color = "tomato";
+                      $color = "#EA2027";
                       $muestra_color="Roja";
                 } elseif ($color == 2) {
-                    $color = "MediumSeaGreen";
+                    $color = "#009432";
                     $muestra_color="Verde";
                 } else {
-                    $color = "blue";
+                    $color = "#0652DD";
                     $muestra_color="Azul";
                 }
-                echo "<td>";
-                echo "<a style='cursor:pointer;color:tomato;font-size:18px;' class='float-left'>";
-                echo $turno[0];
-                echo " ";
-                //echo $turno[2];
-                echo "</a>";
-                echo "</td>";
-                echo "<td style='border:2px solid $color;' class='text-center'>";
-                echo "<p style='font-weight:bold;font-size:18px;color:$color;'>";
-                echo $muestra_color;
-                echo "</td>
-                        <td class='text-center'>
-                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='fas fa-trash-alt'  style='padding:5px;color:tomato;cursor:pointer;font-size:20px;'></i>
-                        </td>
-
+                echo "<tr><th scope='row' style='color:$color'>$turno[2]</th>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
+                    <td class='text-center'>
+                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                    </td>
                 </tr>";
             }
-            echo "</tbody>
-                           </table>
-                           </div>";
-                           
+            echo "</tbody></table></div>";
         }
     }
 
     //MOSTRAR TURNOS POR COLOR DE CANCHA
-    function mostrarTurnosPorCancha($fecha, $color_cancha)
-    {
-
+    function mostrarTurnosPorCancha($fecha, $color_cancha){
         $color = null;
         $muestra_color=null;
         $respuesta = array();
@@ -129,33 +100,18 @@ class Turno
             {
                 return -1;
             } else {
-            echo "<div class='table-responsive'>
-                                    <table class='table'>
-                                        <thead class='text-primary'>
-                                            <th style='font-weight:bold;'>
-                                                Hora
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                            Reserva
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                               Cancha
-                                            </th>
-                                            <th style='font-weight:bold;'>
-                                               Acción
-                                            </th>
-                                        </thead>";
-            echo "<tbody>";
+                echo "<div class='table table-hover'>
+                <table class='table'>
+                    <thead>
+                        <tr>
+                            <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
+                            <th scope='col' style='font-weight:bold; color: #2a5788'>Reserva</th>
+                            <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
             //comienzo foreach
-
             foreach ($respuesta as $turno) {
-                echo "<tr>
-                        <td>";
-                echo "<p>";
-                echo $turno[2];
-                echo "</p>";
-                echo "</td>";
-
                 $color = $turno[1];
                 if ($color == 1) {
                       $color = "tomato";
@@ -167,31 +123,19 @@ class Turno
                     $color = "blue";
                     $muestra_color="Azul";
                 }
-                echo "<td class='clearfix' style='cursor:pointer;font-size:18px;'>";
-                echo "<a style='cursor:pointer;color:tomato;font-size:18px;' class='float-left'>";
-                echo $turno[0];
-                echo " ";
-                //echo $turno[2];
-                echo "</a>";
-                echo "</td>";
-                echo "<td style='border:2px solid $color;' class='text-center'>";
-                echo "<p style='font-weight:bold;font-size:18px;color:$color;'>";
-                echo $muestra_color;
-                echo "</td>
-                        <td class='text-center'>
-                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='fas fa-trash-alt'  style='padding:5px;color:tomato;cursor:pointer;font-size:20px;'></i>
-                        </td>
-
+                echo "<tr><th scope='row' style='color:$color'>$turno[2]</th>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
+                    <td class='text-center'>
+                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                    </td>
                 </tr>";
             }
-            echo "</tbody>
-                           </table>
-                           </div>";
+            echo "</tbody></table></div>";
         }
     }
 
-    function mostrarTurnosPorCanchaUser($fecha, $color_cancha)
-    {
+    function mostrarTurnosPorCanchaUser($fecha, $color_cancha){
         $color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
@@ -204,13 +148,14 @@ class Turno
                     <thead>
                         <tr style='display: flex; flex-direction:column;'>
                             <th class='text-primary' style='font-weight:bold; display: flex; flex-direction:row; justify-content:space-around'>
-                            <div style='width:100%; display:flex; justify-content:center;'>
-                                <p>Hora</p>
-                            </div>
-                            <div style='width:100%; display:flex; justify-content:center;'>
-                                <p>Disponibilidad</p>
-                            </div>
+                                <div style='width:100%; display:flex; justify-content:center;'>
+                                    <p>Hora</p>
+                                </div>
+                                <div style='width:100%; display:flex; justify-content:center;'>
+                                    <p>Disponibilidad</p>
+                                </div>
                             </th>
+                        </tr>
                     </thead>";
         echo "<tbody>";
         $horario = 17;
@@ -221,14 +166,12 @@ class Turno
                         <p>$horario</p>
                     </div>
                     <div style='width:100%; display:flex; justify-content:center;'>";
-
             foreach ($respuesta as $hora) {
                 if ($horario == $hora[0]){ 
                     $bandera = 1;
                     $estado=$hora[1];
                 }
             }
-
             if ($bandera == 1 AND $estado==1) {
                 echo "<button type='button' class='btn btn-danger disabled' data-dismiss='modal' id='$horario'>Reservado</button>";
             } else if($bandera==1 AND $estado==0){
@@ -243,8 +186,7 @@ class Turno
         echo "</div></td></tr><tr><td></td></tr></tbody></div>";
     }
 //LADO USUARIO
-    function mostrarTurnosPendientes($email)
-    {
+    function mostrarTurnosPendientes($email){
         $con = ConexionBD::getConexion();
         $sql = "SELECT cancha_id_cancha,hora,fecha FROM usuario_x_cancha WHERE usuario_email='$email' AND estado=0 ";
         $respuesta = $con->recuperar($sql);
@@ -252,9 +194,7 @@ class Turno
         if (empty($respuesta)){
             return -1;
         }else{
-
-            foreach ($respuesta as $turno_pendiente)
-            {
+            foreach ($respuesta as $turno_pendiente){
                 echo "<div class='card'>
                     <div class='card-body'>
                        <div class='d-flex'>
@@ -268,20 +208,15 @@ class Turno
                         </div>
                             <p class='card-text' style='font-size:17px;'>Turno esperando respuesta</p>
                             <a href='#' class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
-                         
                     </div>
-
                 </div>";
             }
-
         }
     }
 
-
     //el administrador usa este metodo para obtener todos los turnos no confirmados, (los que tienen estado=0)
     //dada cierta fecha
-    function mostrarSolicitudes($fecha)
-    {
+    function mostrarSolicitudes($fecha){
         $con = ConexionBD::getConexion();
         $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND estado=0;";
         $respuesta = $con->recuperar($sql);
@@ -289,19 +224,11 @@ class Turno
         if (empty($respuesta)){
             echo "NO HAY SOLICITUDES";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
         }else{
-
-            foreach ($respuesta as $solicitud)
-            {
+            
+            foreach ($respuesta as $solicitud){
                 echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
                 contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
-            }
-
-        }
-
-
     }
-
-
-
-}
+        }
+    }

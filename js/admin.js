@@ -1,10 +1,7 @@
 
 var id_intervalo=null;
  $(document).ready(function(){
-  
   Actualizar_FechaActual_Input();
-
-
   id_intervalo=runSetInterval(Buscarturnos);
   
 });

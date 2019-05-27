@@ -180,7 +180,7 @@
                                     <!--BOTON PARA AGREGAR TURNO-->
                                     <i class="fas fa-user-plus " id="agregar_turno" data-toggle="modal"
                                         data-target="#Modal"
-                                        style="padding:5px;color:  MediumSeaGreen;font-size:40px;cursor:pointer;display: none;"></i>
+                                        style="padding:5px; color: #009432 ;font-size:40px;cursor:pointer;display: none;"></i>
                                 </div>
                             </div>
                             <!--fin Carta-->
