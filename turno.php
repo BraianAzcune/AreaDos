@@ -275,7 +275,5 @@ class Turno
             }
 
         }
-
-
     }
 }
