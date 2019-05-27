@@ -75,7 +75,7 @@ class Turno
                     $color = "#0652DD";
                     $muestra_color="Azul";
                 }
-                echo "<tr><th scope='row' style='color:$color'>$turno[2]</th>";
+                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$turno[2]</th>";
                 echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
                 echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
                     <td class='text-center'>
@@ -123,7 +123,7 @@ class Turno
                     $color = "blue";
                     $muestra_color="Azul";
                 }
-                echo "<tr><th scope='row' style='color:$color'>$turno[2]</th>";
+                echo "<tr><th scope='row' style='font-size:18px;color:$color'>$turno[2]</th>";
                 echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
                 echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
                     <td class='text-center'>
@@ -217,19 +217,57 @@ class Turno
     //el administrador usa este metodo para obtener todos los turnos no confirmados, (los que tienen estado=0)
     //dada cierta fecha
     function mostrarSolicitudes($fecha){
+        $muestra_color=null;
+        $color = null;
         $con = ConexionBD::getConexion();
-        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND estado=0;";
+        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND usuario_x_cancha.estado=0;";
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)){
             echo "NO HAY SOLICITUDES";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
         }else{
-            
-            foreach ($respuesta as $solicitud){
+            echo "<div class='table table-hover'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Apellido</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Nombre</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Contacto</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+            //comienzo foreach
+            foreach ($respuesta as $solicitud) {
+                $color = $solicitud[3];
+                if ($color == 1) {
+                      $color = "#EA2027";
+                      $muestra_color="Roja";
+                } elseif ($color == 2) {
+                    $color = "#009432";
+                    $muestra_color="Verde";
+                } else {
+                    $color = "#0652DD";
+                    $muestra_color="Azul";
+                }
+                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$solicitud[4]</th>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[1]</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[0]</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
+                    <td class='text-center'>
+                        <i class='fas fa-check-square'  style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-minus-square'  style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
+                    </td>
+                </tr>";
+            }
+            echo "</tbody></table></div>";
+        }
+            /*foreach ($respuesta as $solicitud){
                 echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
                 contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
-    }
-        }
+    }*/
     }
 }
