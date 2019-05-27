@@ -241,7 +241,7 @@ class Turno
         }
         echo "</div></td></tr><tr><td></td></tr></tbody></div>";
     }
-
+    //--------------LADO USUARIO---------------
     function mostrarTurnosPendientes($email)
     {
         $con = ConexionBD::getConexion();
@@ -280,6 +280,7 @@ class Turno
             }
         }
     }
+    //-----------------LADO USUARIO------------
     function mostrarTurnosConfirmados($email)
     {
         $con = ConexionBD::getConexion();
