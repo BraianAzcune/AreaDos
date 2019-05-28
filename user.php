@@ -1,12 +1,12 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['email']) || ($_SESSION['tipo'] != false)) {
-
-    header('Location: Ingresar.php');
-}
-
+    session_start();
+    
+    if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=false)) {
+        
+            header('Location: index.php');
+    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@ if (!isset($_SESSION['email']) || ($_SESSION['tipo'] != false)) {
                     <li>
                         <a href="#">
                             <i class=""></i>
-                            <p id="Ver_Turnos">Ver Turnos</p>
+                            <p id="ver_turnos">Ver Turnos</p>
                         </a>
                     </li>
                     <li>
@@ -136,30 +136,30 @@ if (!isset($_SESSION['email']) || ($_SESSION['tipo'] != false)) {
                     <div class="col-md-12">
                         <!--comienzo Carta-->
                         <div class="card">
-                            <div class="card-header clearfix" id="turnos">
-                                <h4 class="card-title text-center" id="titulo_Pendientes"></h4>
-                                <div class="text-center ">
-                                    <div class="row" id="contenedor_canchasYfecha">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-2">
+                            <div  id="turnos" class="card-header clearfix"  style="display: flex; flex-direction: row; justify-content: center">
+                                <!--<h4 class="card-title text-center" id="titulo_Pendientes"></h4>-->
+                                <div style="display: flex; flex-direction: row; justify-content: center">
+                                    
+                                <div style="display: flex; flex-direction:column">
                                             <label for="sel1" style="font-size:18px;"> Fecha:</label>
                                             <input style="padding:8px;" type="date" name="dias" id="dias" value=""
                                                 data-toggle="tooltip"
                                                 title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
                                                 onchange="seleccionarCancha()" />
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2"></div>
+                                        <div style="display: flex; flex-direction:column">
                                             <div class="form-group">
-                                                <label for="sel1" style="font-size:18px;"> Filtrar por:</label>
-                                                <select class="form-control" onchange="seleccionarCancha()" id="filtrado">
+                                                <label for="sel1" style="font-size:18px;"> Filtrado:</label>
+                                                <select class="form-control" onchange="seleccionarCancha()"
+                                                    id="filtrado">
                                                     <option selected="selected">Cancha Roja</option>
                                                     <option> Cancha Verde</option>
                                                     <option>Cancha Azul</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="card-body">

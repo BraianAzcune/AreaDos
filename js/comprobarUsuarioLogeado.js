@@ -1,4 +1,5 @@
 
+
          
         
 
@@ -44,10 +45,9 @@ function comprobarUsuarioLogeado(callback,manual=false,mostrarModal){
 }
 
 function redireccionar(rta) {
-   
-    
 
-    if(window.location.href==rta){
+    if(window.location.pathname.split("/").pop()==rta){
+
         if(mostrarModal instanceof Function){
             mostrarModal();
         }

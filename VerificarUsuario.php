@@ -9,7 +9,7 @@
     
     $email= filter_input(INPUT_POST, 'email');
     $pass=filter_input(INPUT_POST, 'pass');
-    $url = "Ingresar.php";
+    $url = "index.php";
     
     
    $consulta = "SELECT email,password,tipo_usuario FROM usuario WHERE email = '$email' AND password = '$pass' ";
@@ -36,7 +36,7 @@
     }
     
    
-   
+    
  
     echo $url;
     

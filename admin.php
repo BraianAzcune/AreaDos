@@ -5,7 +5,7 @@
     
     if (!isset($_SESSION['email']) || ($_SESSION['tipo']!=true)) {
         
-        header('Location: Ingresar.php');
+        header('Location: index.php');
         
     } 
     
@@ -45,13 +45,19 @@
                     <li>
                         <a href="#">
                             <i class=""></i>
-                            <p id="Ver_Turnos">Ver Turnos</p>
+                            <p id="ver_turnos">Ver Turnos</p>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <i class=""></i>
                             <p data-toggle="modal" data-target="#ModalUsuario">Cargar Usuarios</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class=""></i>
+                            <p id="solicitudes">Solicitudes</p>
                         </a>
                     </li>
                      <li>
@@ -136,22 +142,19 @@
                     <div class="col-md-12">
                         <!--comienzo Carta-->
                         <div class="card">
-                            <div class="card-header clearfix" id="turnos">
-                                  <h4 class="card-title text-center" id="titulo_estadistica"></h4>
-                                <div class="text-center">
-                                    <div class="row" id="contenedor_canchasYfecha">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-2">
+                            <div id="turnos" class="card-header clearfix" style="display: flex; flex-direction: row; justify-content: center">
+                                <div style="display: flex; flex-direction: row; justify-content: center">
+                                    
+                                        <div id="selectFecha" style="display: flex; flex-direction:column">
                                             <label for="sel1" style="font-size:18px;"> Fecha:</label>
                                             <input style="padding:8px;" type="date" name="dias" value=""
                                                 data-toggle="tooltip"
                                                 title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
                                                 onchange="Buscarturnos()">
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="sel1" style="font-size:18px;"> Filtrar por:</label>
+                                        <div class="col-md-2"></div>
+                                            <div id="filtrarColor" class="form-group">
+                                                <label for="sel1" style="font-size:18px;"> Filtrar:</label>
                                                 <select class="form-control" onchange="seleccionarCancha()"
                                                     id="filtrado">
                                                     <option selected="selected">Todos</option>
@@ -161,18 +164,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
-                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8">
+                                        <!--Aca se cargan todo los datos que provienen de la base de datos-->
                                         <div class="contenedor">
-
-
-
-                                            
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +180,7 @@
                                     <!--BOTON PARA AGREGAR TURNO-->
                                     <i class="fas fa-user-plus " id="agregar_turno" data-toggle="modal"
                                         data-target="#Modal"
-                                        style="padding:5px;color:  MediumSeaGreen;font-size:40px;cursor:pointer;display: none;"></i>
+                                        style="padding:5px; color: #009432 ;font-size:40px;cursor:pointer;display: none;"></i>
                                 </div>
                             </div>
                             <!--fin Carta-->
