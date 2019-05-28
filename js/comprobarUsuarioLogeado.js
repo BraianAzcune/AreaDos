@@ -45,8 +45,9 @@ function comprobarUsuarioLogeado(callback,manual=false,mostrarModal){
 }
 
 function redireccionar(rta) {
-
-    if(window.location.pathname.split("/").pop()==rta){
+    var finalDireccionRelativa=window.location.pathname.split("/").pop();
+    
+    if(rta=="index.php"){
 
         if(mostrarModal instanceof Function){
             mostrarModal();

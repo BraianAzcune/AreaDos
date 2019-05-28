@@ -22,12 +22,22 @@ class Turno
         return $resultado;
     }
     //REGISTRAR SOLICITUD DE TURNO
-    function  registrarSolicitudDeTurno($email, $hora, $cancha, $fecha){
+    function  registrarSolicitudDeTurno($email, $hora, $cancha, $fecha)
+    {
         $con = ConexionBD::getConexion();
-        $sql = "UPDATE usuario_x_cancha SET estado=1 WHERE usuario_email='$email' AND hora='$hora' AND cancha_id_cancha='$cancha' AND fecha='$fecha'";
+        $sql = "INSERT INTO usuario_x_cancha (usuario_email,cancha_id_cancha,hora,fecha,estado) VALUES ('$email','$cancha','$hora','$fecha',0)";
         $resultado = $con->insertar($sql);
         return $resultado;
     }
+
+    //CONFIRMAR SOLICITUD DE TURNO
+    function  confirmarSolicitudDeTurno($email, $hora, $cancha, $fecha){
+        $con = ConexionBD::getConexion();
+        $sql = "UPDATE usuario_x_cancha SET estado=1 WHERE usuario_email='$email' AND hora='$hora' AND cancha_id_cancha='$cancha' AND fecha='$fecha';";
+        $resultado = $con->insertar($sql);
+        return $resultado;
+    }
+
 
     //ELIMINAR TURNO
     function eliminarTurno($id, $hora, $fecha)
@@ -192,7 +202,9 @@ class Turno
 
         //control de resultado
         if (empty($respuesta)){
-            return -1;
+            echo "<div style='display: flex; justify-content:center;'>
+                        <h2 style='font-weight:bold; color: #2a5788'>No hay ningun turno pendiente<h2>
+                </div>";
         }else{
             foreach ($respuesta as $turno_pendiente){
                 echo "<div class='card'>
@@ -211,7 +223,7 @@ class Turno
 
                         </div>
                             <p class='card-text' style='font-size:17px;'>Turno esperando respuesta</p>
-                            <a href='#' class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
+                            <a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
                     </div>
                 </div>";
                 $id++;
@@ -231,7 +243,7 @@ class Turno
         if (empty($respuesta)){
             echo "<div style='display: flex; justify-content:center;'>
                         <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
-                </div>";//INSERTAR ACA EL DIV INFORMANDO QUE NO HAY SOLICITUDES
+                </div>";
         }else{
             echo "<div class='table table-hover'>
                     <table class='table'>
@@ -264,7 +276,7 @@ class Turno
                 echo "<td style='font-size:18px; color:$color'>$solicitud[0]</td>";
                 echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
                     <td class='text-center'>
-                        <i class='fas fa-check-square' onclick=registrarSolicitudDeTurno($solicitud[5], $solicitud[4], $solicitud[3], '$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-check-square' onclick=confirmarSolicitudDeTurno('$solicitud[5]',$solicitud[4],$solicitud[3],'$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
                         <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
@@ -281,4 +293,42 @@ class Turno
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
     }*/
     }
+
+
+
+   //-----------------LADO USUARIO------------
+   function mostrarTurnosConfirmados($email)
+   {
+       $con = ConexionBD::getConexion();
+       $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=1 ";
+       $respuesta = $con->recuperar($sql);
+       //control de resultado
+       if (empty($respuesta)) {
+        echo "<div style='display: flex; justify-content:center;'>
+                <h2 style='font-weight:bold; color: #2a5788'>No tienes confirmado ningun turno<h2>
+                </div>";
+       } else {
+           $id = 0;
+           foreach ($respuesta as $turno_pendiente) {
+               echo "<div class='card' id=$id>
+              <div class='card-body'>
+                 <div class='d-flex'>
+                      <div class='p-2 mr-auto'>
+                          <p class='card-title'>Fecha: $turno_pendiente[2]</p>
+                     </div>
+                      <div class='p-2'>
+                          <p class='card-title'>Hora:  $turno_pendiente[1]  hs</p>
+                      </div>
+                      <div class='p-2'>
+                          <p id='' class='card-title'>Cancha: $turno_pendiente[3]</p>
+                      </div>
+                  </div>
+                      <p class='card-text' style='font-size:17px;'>Turno Confirmado </p>
+                      <a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Turno</a>
+              </div>
+          </div>";
+               $id++;
+           }
+       }
+   }
 }

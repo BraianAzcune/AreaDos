@@ -129,6 +129,31 @@ function Buscarturnos() {
     });
 };
 
+//-----El admin confirma una solicitud y pasa a ser un turno.
+function confirmarSolicitudDeTurno(email,hora,id_cancha,fecha){
+  
+  $.post("confirmarSolicitud.php",
+  {
+    email:email,
+    hora:hora,
+    cancha: id_cancha,
+    fecha:fecha
+
+  },
+  function (data, status) {
+    alert(data);
+    if (data == 1) {
+      $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+      $.notify("Solicitud confirmada", "success", { position: 'left' });
+    } else {
+      $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+      $.notify("Error al aceptar solicitud", "warning", { position: 'left' });
+    }});
+
+}
+
+
+
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
 function eliminar_turno(id_cancha,hora,fecha) {
   $.post("borrarTurno.php",
@@ -141,10 +166,10 @@ function eliminar_turno(id_cancha,hora,fecha) {
     function (data, status) {
       if (data == 1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("Turno Eliminado", "warning", { position: 'left' });
+        $.notify("Turno Eliminado", "success", { position: 'left' });
       } else {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("Error al eliminar el turno", "success", { position: 'left' });
+        $.notify("Error al eliminar el turno", "warning", { position: 'left' });
       }});
 }
 //FUNCION QUE OBTIENE EL PARAMETRO PARA FILTRAR A TRAVÉS DE UN CAMBIO EN EL INPUT
