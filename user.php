@@ -144,7 +144,10 @@ if (!isset($_SESSION['email']) || ($_SESSION['tipo'] != false)) {
                                         <div class="col-md-2"></div>
                                         <div class="col-md-2">
                                             <label for="sel1" style="font-size:18px;"> Fecha:</label>
-                                            <input style="padding:8px;" type="date" name="dias" value="" data-toggle="tooltip" title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!" onchange="seleccionarCancha()" />
+                                            <input style="padding:8px;" type="date" name="dias" id="dias" value=""
+                                                data-toggle="tooltip"
+                                                title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
+                                                onchange="seleccionarCancha()" />
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">

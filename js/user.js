@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
   Actualizar_FechaActual_Input();
-  id_intervalo = runSetInterval(seleccionarCancha);
+  id_intervalo=runSetInterval(seleccionarCancha);
+  limitarFechaCalendario();
 
 });
 
@@ -212,3 +213,51 @@ $("#TurnosCorfirmados").click(function () {
   });
 
 });
+
+
+
+
+
+//------------------------LIMITAR CALENDARIO--------------------------------
+
+  function limitarFechaCalendario(){
+
+      var fechaMIN = new Date();
+    var fechaMAX = new Date();
+    var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+    fechaMAX.setTime(fechaMAX.getTime() + weekInMilliseconds);
+
+      //------------dia minimo (fecha actual)---------------------
+      var diaMIN = fechaMIN.getDate();
+      var mesMIN = fechaMIN.getMonth();
+      mesMIN++;
+      var anioMIN = fechaMIN.getFullYear();
+      if (diaMIN < 10) {
+         diaMIN = '0' + diaMIN; //agrega cero si el menor de 10
+      }
+      if (mesMIN < 10) {
+         mesMIN = '0' + mesMIN;
+      }
+      var fechaMinima = anioMIN + "-" + mesMIN + "-" + diaMIN;
+
+
+      //------------dia maximo (una week despues)---------------
+      var diaMAX = fechaMAX.getDate();
+      var mesMAX = fechaMAX.getMonth();
+      mesMAX++;
+      var anioMAX = fechaMAX.getFullYear();
+      if (diaMAX < 10) {
+         diaMAX = '0' + diaMAX; //agrega cero si el menor de 10
+      }
+      if (mesMAX < 10) {
+         mesMAX = '0' + mesMAX;
+      }
+      var fechaMaxima = anioMAX + "-" + mesMAX + "-" + diaMAX;
+
+      //---------------------Agrega atributos min and max al input-----------
+      $("#dias").attr({
+       "max" : fechaMaxima,
+       "min" : fechaMinima
+    });
+      
+    }
