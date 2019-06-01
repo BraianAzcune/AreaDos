@@ -42,20 +42,30 @@ $("#cambiarContrasena").click(function () {
 
       if (data == -1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("No se pudo modificar la contraseña", "danger", { position: 'left' });
-      } else if (data == 1) {
-        //$.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        //$.notify("Contraseña modificada con Éxito", "success", { position: 'left' });
+        $.notify("Contraseña incorrecta", "danger", { position: 'left' });
 
-        //Si se cambio la contraseña se cierra la sesion
-        $.getScript("/AreaDos/js/cerrarSesion.js", function (script, textStatus, jqXHR) {
-          cerrarSesion();
-        });
+        $('.modalpasschange').val('');
+        
+      } else if (data == 1) {
+        
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Contraseña cambiada. Cerrando sesión", "success", { position: 'left' });
+        
+        setTimeout(importarCerrarSession, 2000);
+
 
       }
     });
 });
 
+
+function importarCerrarSession(){
+  
+  $.getScript("/AreaDos/js/cerrarSesion.js", function (script, textStatus, jqXHR) {
+            
+    cerrarSesion();          
+});
+}
 
 
 

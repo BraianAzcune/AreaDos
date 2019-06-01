@@ -306,16 +306,17 @@
                             
                             <div class="form-group">
                                 <label for="contraseña">Ingrese contrase&ntildea actual:</label>
-                                <input type="text" class="form-control" name="contrasena">
+                                <input class="form-control modalpasschange" name="contrasena" type="password">
                             </div>
                             <div class="form-group">
                                 <label for="nuevaContraseña">Ingrese nueva contrase&ntildea:</label>
-                                <input type="text" class="form-control" name="nuevaContrasena">
+                                <input class="form-control modalpasschange" name="nuevaContrasena" type="password">
                             </div>                        
                         </div>
                         <!--footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="cambiarContrasena">Cambiar contraseña</button>
+                        <!-- data-dismiss="modal" -->
+                            <button type="button" class="btn btn-success"  id="cambiarContrasena">Cambiar contraseña</button>
                         </div>
                     </div>
                 </div>
