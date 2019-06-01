@@ -155,7 +155,7 @@
                                         <div class="col-md-2"></div>
                                             <div id="filtrarColor" class="form-group">
                                                 <label for="sel1" style="font-size:18px;"> Filtrar:</label>
-                                                <select class="form-control" onchange="seleccionarCancha()"
+                                                <select class="custom-select" onchange="seleccionarCancha()"
                                                     id="filtrado">
                                                     <option selected="selected">Todos</option>
                                                     <option>Cancha Roja</option>
