@@ -151,7 +151,7 @@
                                         <div style="display: flex; flex-direction:column">
                                             <div class="form-group">
                                                 <label for="sel1" style="font-size:18px;"> Filtrado:</label>
-                                                <select class="form-control" onchange="seleccionarCancha()"
+                                                <select class="custom-select" onchange="seleccionarCancha()"
                                                     id="filtrado">
                                                     <option selected="selected">Cancha Roja</option>
                                                     <option> Cancha Verde</option>
