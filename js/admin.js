@@ -74,6 +74,25 @@ $("#cargarUsuario").click(function () {
         $.notify("Usuario Cargado con Éxito", "success", { position: 'left' });
       }
     });
+
+    //---------------------envia los datos del usuario registrado al mail-------------
+    $.post("PHPMailer/mail.php",
+    {
+      nombre: nombre,
+      apellido: apellido,
+      contacto: contacto,
+      email: email,
+      contraseña: contraseña
+    },
+    function (data, status) {
+      if (data == -1) {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("fayo el envio", "danger", { position: 'left' });
+      } else {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Se ha enviado el mail", "success", { position: 'left' });
+      }
+    });
 });
 
 //---------------------------------Cambiar contraseña----------------------------------------
