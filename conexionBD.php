@@ -111,12 +111,14 @@ class ConexionBD {
         $result = false;
         if ($resultado = $this->_connection->query($consulta)) {
             $row_cnt = $resultado->num_rows;
+            
             if ($row_cnt > 0) {
                 $result = true;
             }
         } else {
             echo "Error: " . $consulta . "<br>" . $this->_connection->error;
         }
+    
         return $result;
     }
 

@@ -6,15 +6,16 @@ $nombre=$_POST["nombre"];
 $apellido=$_POST["apellido"];
 $contacto=$_POST["contacto"];
 $email=$_POST["email"];
-$contraseña=$_POST["contraseña"];
+$contrasena=$_POST["contraseña"];
 
 
 $u = new usuario();
-$control=$u->usuarioDisponible($email);
-if($control==-1){
-$u->agregarUsuario($nombre,$apellido,$contacto,$email,$contraseña);
-}
-else{
+$control= $u->usuarioDisponible($email);
+
+if($control){
+    $u->agregarUsuario($nombre,$apellido,$contacto,$email,$contrasena);
+    echo 1;
+}else{
     echo -1;
 }
 

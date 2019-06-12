@@ -6,8 +6,15 @@ error_reporting(E_ALL^E_NOTICE);
 class Usuario{
     function usuarioDisponible($email) {
         $con=ConexionBD::getConexion();
-        $sql="SELECT * FROM USUARIO WHERE email='$email' ";
-        return $con->existe($sql);
+        $sql="SELECT * FROM USUARIO WHERE email='$email';";
+        $respuesta=$con->existe($sql);
+        
+        if($respuesta){
+            
+            return false;
+        }else {
+            return true;
+        }
     }
     function agregarUsuario($nombre,$apellido,$contacto,$email,$pass){
         $con=ConexionBD::getConexion();

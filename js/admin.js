@@ -4,7 +4,6 @@ var id_intervalo=null;
  $(document).ready(function(){
   Actualizar_FechaActual_Input();
   id_intervalo=runSetInterval(Buscarturnos);
-  
 });
 
 $("#ver_turnos").click(function () {
@@ -56,7 +55,7 @@ $("#cargarUsuario").click(function () {
   var contacto = $("input[name='contacto_usuario']").val();
   var email = $("input[name='Email']").val();
   var contraseña = $("input[name='contraseña']").val();
-
+  $(':input', $("#ModalUsuario")).val('');
   $.post("registrarUsuario.php",
     {
       nombre: nombre,
@@ -66,6 +65,7 @@ $("#cargarUsuario").click(function () {
       contraseña: contraseña
     },
     function (data, status) {
+
       if (data == -1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("El Usuario ya Existe", "danger", { position: 'left' });
