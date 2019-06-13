@@ -28,8 +28,15 @@ try {
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = 'kyozen91@gmail.com';                     // SMTP username
     $mail->Password   = '12deagosto';                               // SMTP password
-    //$mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-    $mail->Port       = 25;                                    // TCP port to connect to
+    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port       = 587;                                    // TCP port to connect to
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
     //Recipients
     $mail->setFrom('kyozen91@gmail.com', 'Area Dos');
