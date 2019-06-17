@@ -339,5 +339,6 @@
 <script src="js/admin.js"></script>
 <script src="js/notify.js"></script>
 <script src="js/cerrarSesion.js"></script>
+<script src="js/adminWebSocket.js"></script>
 
 </html>
