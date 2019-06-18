@@ -339,6 +339,7 @@
 <script src="js/admin.js"></script>
 <script src="js/notify.js"></script>
 <script src="js/cerrarSesion.js"></script>
-<script src="js/adminWebSocket.js"></script>
+<!-- Se necesita el email del administrador -->
+<script id="scriptadminwebsocket" src="js/adminWebSocket.js" data-email="<?php echo $_SESSION['email']?>"></script>
 
 </html>
