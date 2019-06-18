@@ -34,6 +34,9 @@ class Chat implements MessageComponentInterface {
                     case "estaConectado":
                         $this->estaConectado($mensaje->msg,$from);
                         break;
+                    case "TurnoPendienteConfirmado":
+                        $this->TurnoPendienteConfirmado($mensaje->comando,$mensaje->msg);
+                        break;
                     default:
                         echo "LLEGO un comando no reconocido: ".$mensaje->comando;
                 }
@@ -54,6 +57,32 @@ class Chat implements MessageComponentInterface {
 
 
     }
+
+
+
+    /**
+     * TurnoPendienteConfirmado
+     * Recibe un comando y el email del usuario al que debe notificarle, que se confirmo el turno.
+     * Y envia el mensaje al usuario donde el json tiene
+     * json="{"comando":"TurnoPendienteConfirmado"}"
+     *
+     * @param string $comando="TurnoPendienteConfirmado" (deberia ser siempre eso)
+     * @param string $emailUsuario
+     * @return void
+     */
+    private function TurnoPendienteConfirmado($comando,$emailUsuario){
+        $conn=$this->obtenerConexion($emailUsuario);
+        if($conn){
+            $respuesta = new \stdClass();
+            $respuesta->comando=$comando;
+
+            $enviar=json_encode($respuesta);
+            $conn->send($enviar);
+        }else{
+            //NO IMPLEMENTADO
+            //Se deberia enviar email, o decirle a notificarUsuario que no se pudo, y que el envie el email
+        }
+    }
     
     /**
      * registrarEmail
@@ -68,6 +97,24 @@ class Chat implements MessageComponentInterface {
         $this->clients->offsetSet($from,$email);
     }
 
+    
+    /**
+     * obtenerConexion
+     *Dado un email retorna la conexion para ese email, sino hay nada retorna falso
+     * 
+     * @param string $email
+     * @return ConnectionIterface/false
+     */
+    private function obtenerConexion($email){
+        $respuesta=false;
+        foreach($this->clients as $conn){
+            if($this->clients[$conn]==$email){
+                $respuesta=$conn;
+                break;
+            }
+        }
+        return $respuesta;
+    }
 
     
     /**

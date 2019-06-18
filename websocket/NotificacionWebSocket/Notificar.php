@@ -2,7 +2,7 @@
 //Clase base para enviar Notificaciones
 
 //Dependencias usadas para enviar mensajes por sockets.
-require('../vendor/autoload.php');
+require('./vendor/autoload.php');
 use WebSocket\Client;
 
 class Notificar{

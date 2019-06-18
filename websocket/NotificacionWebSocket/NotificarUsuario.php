@@ -34,8 +34,15 @@ class NotificarUsuario extends Notificar{
      * @return void
      */
     public function TurnoPendienteConfirmado($mensaje){
-        //Preguntar si el cliente esta online
-        //si esta se le envia la notificacion
-        //sino se envia un email
+        
+        if($this->estaConectado($this->emailUsuario)){
+        //Si esta conectado enviamos la notificacion
+            $JSON=$this->darFormato("TurnoPendienteConfirmado",$this->emailUsuario);
+            $this->enviar($JSON);
+        }else{
+        //NO IMPLEMENTADO
+        //Sino se envia un email
+        }
+        
     }
 }

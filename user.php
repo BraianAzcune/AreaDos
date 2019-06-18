@@ -243,5 +243,7 @@
 <script src="js/user.js"></script>
 <script src="js/notify.js"></script>
 <script src="js/cerrarSesion.js"></script>
+<script id="scriptuserwebsocket" src="js/userWebSocket.js" data-email="<?php echo $_SESSION['email']?>"></script>
+
 
 </html>
