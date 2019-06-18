@@ -14,12 +14,20 @@ function connect() {
   
     //que hacer cuando llega un mensaje
     ws.onmessage = e => {
-      console.log("Mensaje entrante: ");
-      console.log(e);
-      console.log("Mensaje entrante (formateado para json): ");
+      
       var mensaje = JSON.parse(e.data);
       
-      console.log(mensaje);
+      //Dado el comando, realizamos alguna accion
+      switch(mensaje.comando){
+        case "TurnoPendienteConfirmado":
+            
+            TurnoPendienteConfirmado();
+          break;
+        default:
+          alert("LLego un comando no identificado: "+mensaje.comando);
+      }
+      
+
     };
   
     //si se cierra la conexion, intentamos reconectar.
@@ -43,3 +51,23 @@ function connect() {
   //Ejecutamos la funcion declarada arriba.
   connect();
   
+
+/**
+ * TurnoPendienteConfirmado
+ * Cuando llega una notificacion por websocket, la seccion "mis turnos comienza a tintilear"
+ * hasta que el usuario haga click
+ */ 
+function TurnoPendienteConfirmado(){
+
+  alert("asdasd");
+  //Mostramos Un cartel avisando que se confirmo un turno
+  $.notify.defaults({
+    globalPosition: "bottom right",
+    autoHideDelay: 8000
+  });
+  $.notify("Se confirmo un turno.\nVaya a 'Mis turnos' para mas informacion", "success", { position: "left" });
+  //Hacemos aparecer la campana de notificaciones en la seccion 'Mis turnos'
+  $("#campanaMisTurnos").show();
+
+
+}

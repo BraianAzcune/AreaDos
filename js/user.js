@@ -206,6 +206,8 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
 }
 //---------------------VER TURNOS CONFIRMADOS-------------------------
 $("#TurnosCorfirmados").click(function () {
+  //Ocultamos la campanita
+  $("#campanaMisTurnos").hide();
   stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
   $("#titulo_Pendientes").html("Mis Turnos Aceptados").css("text-decoration", "underline");

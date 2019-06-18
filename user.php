@@ -36,7 +36,7 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
-                        <a href="#">
+                        <a href="#" >
                             <i class=""></i>
                             <p id="ver_turnos">Ver Turnos</p>
                         </a>
@@ -48,9 +48,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class=""></i>
+                        <a href="#" style="display:flex; flex-direction:row; justify-content: flex-start">
+                            
                             <p id="TurnosCorfirmados">Mis Turnos</p>
+                            <i id="campanaMisTurnos" class="fas fa-bell " style="display:none;"></i>
                         </a>
                     </li>
                 </ul>
