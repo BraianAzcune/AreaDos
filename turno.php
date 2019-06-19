@@ -5,7 +5,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 class Turno
 {
     //CONTROLAR TURNO PARA VER SI YA EXISTE
-    function controlarTurno($cancha, $fecha, $horario)
+    function existeTurno($cancha, $fecha, $horario)
     {
         $con = ConexionBD::getConexion();
         $sql = "SELECT * FROM usuario_x_cancha WHERE cancha_id_cancha='$cancha' AND fecha ='$fecha' AND hora='$horario' AND estado=1";
@@ -14,10 +14,10 @@ class Turno
     }
 
     //RESERVAR TURNO
-    function  reservarTurno($nombre, $apellido, $contacto, $cancha, $fecha, $horario)
+    function  reservarTurno($email, $cancha, $fecha, $hora)
     {
         $con = ConexionBD::getConexion();
-        $sql = "INSERT INTO RESERVA (nombre,apellido,contacto,cancha,fecha,horario) VALUES ('$nombre','$apellido','$contacto','$cancha','$fecha','$horario')";
+        $sql = "INSERT INTO usuario_x_cancha (usuario_email,cancha_id_cancha,hora,fecha,estado) VALUES ('$email','$cancha','$hora','$fecha',1)";
         $resultado = $con->insertar($sql);
         return $resultado;
     }
