@@ -55,9 +55,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class=""></i>
+                        <a href="#" style="display:flex; flex-direction:row; justify-content: flex-start">
+                            
                             <p id="solicitudes">Solicitudes</p>
+                            <i id="campanaSolicitudes" class="fas fa-bell " style="display:none;"></i>
                         </a>
                     </li>
                      <li>

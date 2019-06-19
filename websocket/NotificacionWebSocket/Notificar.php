@@ -15,7 +15,13 @@ class Notificar{
         $this->clave="ClaveParaEvitarQueUnUsuarioHagaMacanas  1239d12je09321u9d2138120831yr0fd134__^1¡23123";
     }
 
-    //Envia sin esperar respuesta
+    
+    /**
+     * enviar
+     *Envia mensaje a Chat.php, se debe pasar un string en formato json,(usar darFormato())
+     * @param stringJson $msg
+     * @return void
+     */
     public function enviar($msg="Mensaje por defecto"){
 
         $client = new Client($this->urlServidorWebSocket);

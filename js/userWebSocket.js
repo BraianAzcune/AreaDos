@@ -59,7 +59,7 @@ function connect() {
  */ 
 function TurnoPendienteConfirmado(){
 
-  alert("asdasd");
+  
   //Mostramos Un cartel avisando que se confirmo un turno
   $.notify.defaults({
     globalPosition: "bottom right",

@@ -28,7 +28,7 @@ class Chat implements MessageComponentInterface {
         //Sea administrador o usuario tiene que llegar un comando y un mensaje.
         if(isset($mensaje->comando) && isset($mensaje->msg)){
         
-            //vemos si es administrador.
+            //vemos si es el servidor PHP
             if(isset($mensaje->clave) && $mensaje->clave==$this->clave){
                 switch($mensaje->comando){
                     case "estaConectado":
@@ -37,11 +37,14 @@ class Chat implements MessageComponentInterface {
                     case "TurnoPendienteConfirmado":
                         $this->TurnoPendienteConfirmado($mensaje->comando,$mensaje->msg);
                         break;
+                    case "notificarNuevaSolicitud":
+                        $this->notificarNuevaSolicitud($mensaje->comando,$mensaje->msg);
+                        break;
                     default:
                         echo "LLEGO un comando no reconocido: ".$mensaje->comando;
                 }
             }else{
-            //Si se entra aqui deberia ser usuario
+            //Si se entra aqui deberia ser usuario(administrador o jugador)
                 switch($mensaje->comando){
                     case "registrarEmail":
                         $this->registrarEmail($mensaje->msg,$from);
@@ -53,11 +56,56 @@ class Chat implements MessageComponentInterface {
 
 
         }
+    }//Fin Analizar
 
 
+    /**
+     * notificarNuevaSolicitud
+     *Le notifica a todos los administradores que hay una nueva solicitud de turno
+     *@param string comando (comando que se renvia al js)
+     *@param string arrayEmail
+     *Lista de email de los administradores 
+     * @return void
+     */
+    private function notificarNuevaSolicitud($comando,$arrayEmail){
+        //echo "ArrayEmail== ".$arrayEmail;
+        $listaEmail= array();
+        $listaEmail= json_decode($arrayEmail);
+
+        $algunAdminConectado=false;
+        foreach($listaEmail as $user){
+            //email de algun administrador, es un string.
+            $email=$user->email;
+            $conn=$this->obtenerConexion($email);
+            if($conn){
+                $enviar=$this->darFormato($comando);
+                $conn->send($enviar);
+                $algunAdminConectado=true;
+            }
+        }
+
+        if(!$algunAdminConectado){
+            //NO IMPLEMENTADO REQUIERE EMAIL
+            //Si no hay ningun administrador conectado, enviamos un email.
+            echo "Seccion no implementada notificarNuevaSolicitud";
+        }
 
     }
 
+    
+    /**
+     * darFormato
+     *Se entrega un string con el comando, y le da el formato, para que lo entiendan los js
+     * @param mixed $comando
+     * @return void
+     */
+    private function darFormato($comando){
+        $respuesta = new \stdClass();
+        $respuesta->comando=$comando;
+
+        $enviar=json_encode($respuesta);
+        return $enviar;
+    }
 
 
     /**
@@ -73,10 +121,8 @@ class Chat implements MessageComponentInterface {
     private function TurnoPendienteConfirmado($comando,$emailUsuario){
         $conn=$this->obtenerConexion($emailUsuario);
         if($conn){
-            $respuesta = new \stdClass();
-            $respuesta->comando=$comando;
-
-            $enviar=json_encode($respuesta);
+            
+            $enviar=$this->darFormato($comando);
             $conn->send($enviar);
         }else{
             //NO IMPLEMENTADO

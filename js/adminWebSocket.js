@@ -14,11 +14,18 @@ function connect() {
 
   //que hacer cuando llega un mensaje
   ws.onmessage = e => {
-    console.log("Mensaje entrante: ");
-    console.log(e);
-    console.log("Mensaje entrante (formateado para json): ");
+    
     var mensaje = JSON.parse(e.data);
-    console.log(mensaje);
+      
+    //Dado el comando, realizamos alguna accion
+    switch(mensaje.comando){
+      case "notificarNuevaSolicitud":
+
+        notificarNuevaSolicitud();
+        break;
+      default:
+        alert("LLego un comando no identificado: "+mensaje.comando);
+      }
   };
 
   //si se cierra la conexion, intentamos reconectar.
@@ -41,3 +48,22 @@ function connect() {
 
 //Ejecutamos la funcion declarada arriba.
 connect();
+
+
+/**
+ * notificarNuevaSolicitud
+ * cuando llega una notificacion de que hay una nueva solicitud pendiente de revisar.
+ * se envia una notificacion y aparece una campanita en la seccion "Solicitudes"
+ * 
+ */
+function notificarNuevaSolicitud(){
+  //Mostramos Un cartel avisando que llego una solicitud
+  $.notify.defaults({
+    globalPosition: "bottom right",
+    autoHideDelay: 8000
+  });
+  $.notify("Hay una nueva solicitud.\nVaya a 'Solicitudes' para mas informacion", "success", { position: "left" });
+  //Hacemos aparecer la campana de notificaciones en la seccion 'Mis turnos'
+  $("#campanaSolicitudes").show();
+
+}

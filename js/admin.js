@@ -372,7 +372,11 @@ $("#agregar_turno").click(function() {
 //-----------------------SOLICITUDES-----------------------------
 
 $("#solicitudes").click(function() {
-  stopSetInterval(id_intervalo);
+
+  //Ocultamos la campanita que notifica que hay una solicitud
+  $("#campanaSolicitudes").hide();
+
+  //stopSetInterval(id_intervalo);
 
   //borramos lo que tiene el contenedor compartido.
   $(".contenedor").empty();
@@ -381,7 +385,8 @@ $("#solicitudes").click(function() {
   $("#agregar_turno").hide();
 
   //ejecutar ajax para refrescar solicitudes nuevas
-  id_intervalo = runSetInterval(actualizarSolicitudes);
+  //id_intervalo = runSetInterval(actualizarSolicitudes);
+  actualizarSolicitudes();
 });
 
 function actualizarSolicitudes() {
