@@ -12,31 +12,28 @@ $("#ver_turnos").click(function () {
 });
 
 //----------------ENVIA LOS DATOS AL ARCHIVO PEDIRTURNO.PHP---------------------------------------
-$("#cargarTurno").click(function(){
-    
+$("#cargarTurno").click(function () {
+
   var nombre = $("input[name='nombre']").val();
   var apellido = $("input[name='apellido']").val();
   var contacto = $("input[name='contacto']").val();
   var fecha = Obtener_Fecha_input();
   var cancha_id;
   var horario;
-  
+
   cancha_id = document.getElementById("cancha").value;
-  
-  if(cancha_id==='Roja')
-  {
-   cancha_id=1; 
-  }else if(cancha_id==='Verde')
-  {
-    cancha_id=2;
-  }else if(cancha_id==='Azul')
-  {
-    cancha_id=3;
+
+  if (cancha_id === 'Roja') {
+    cancha_id = 1;
+  } else if (cancha_id === 'Verde') {
+    cancha_id = 2;
+  } else if (cancha_id === 'Azul') {
+    cancha_id = 3;
   }
-  
+
   horario = document.getElementById("horario").value;
   //deberia obtener las horas
-  
+
   $.post("pedirTurno.php",
     {
       nombre: nombre,
@@ -45,18 +42,26 @@ $("#cargarTurno").click(function(){
       horario: horario,
       cancha: cancha_id,
       fecha: fecha
-      
+
     },
     function (data, status) {
-      if (data == -1) {
-        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("El turno no se puede cargar", "danger", { position: 'left' });
-      } else {
+      alert(data);
+      if (data == 1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("Turno cargado", "success", { position: 'left' });
+      } else {
+        if (data == 0) {
+          $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 6000 });
+          $.notify("El turno no se puede cargar", "danger", { position: 'left' });
+        }
+        else {
+          $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 6000 });
+          $.notify("Revise los datos cargados", "danger", { position: 'left' });
+        }
+
       }
     });
-    updateModal();
+  updateModal();
 });
 //---------------------------------Cargar Usuario----------------------------------------
 $("#cargarUsuario").click(function () {
@@ -338,47 +343,44 @@ function Obtener_Fecha_input() {
 function updateModal() {
   fecha = Obtener_Fecha_input();
   cancha_id = document.getElementById("cancha").value;
-  
-  if(cancha_id==='Roja')
-  {
-   cancha_id=1; 
-  }else if(cancha_id==='Verde')
-  {
-    cancha_id=2;
-  }else if(cancha_id==='Azul')
-  {
-    cancha_id=3;
-}
 
- $.post("buscarHorasDisponibles.php",
+  if (cancha_id === 'Roja') {
+    cancha_id = 1;
+  } else if (cancha_id === 'Verde') {
+    cancha_id = 2;
+  } else if (cancha_id === 'Azul') {
+    cancha_id = 3;
+  }
+
+  $.post("buscarHorasDisponibles.php",
     {
       fecha: fecha,
       id_cancha: cancha_id
     },
     function (data) {
       if (data == -1) {
-         $("#horario").empty();
-         for (var j = 17; j<=23; j++) {
-                
-                $("#horario").append("<option>"+j+"</option>");
-          
-            }
-   
+        $("#horario").empty();
+        for (var j = 17; j <= 23; j++) {
+          $("#horario").append("<option>" + j + "</option>");
+        }
       }
       else {
-        
-     var horas = JSON.parse(data); 
-           
-            $("#horario").empty();
-            for (var j = 17; j<=23; j++) {
-             for(var i=0; i<horas.length;i++){
-               if(horas[i]!=j)
-              {
-                $("#horario").append("<option>"+j+"</option>");
-              }
+        alert(data);
+        var horas = JSON.parse(data);
+        var existe=false;
+      
+        $("#horario").empty();
+        for (var j = 17; j <= 23; j++) {
+          for (var i = 0; i < horas.length; i++) {
+            if (horas[i] == j) {
+              existe = true;
+            }
           }
+          if (!existe) {
+            $("#horario").append("<option>" + j + "</option>");
+          }
+          existe=false;
         }
-
       }
     });
 }
