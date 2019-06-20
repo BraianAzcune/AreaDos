@@ -1,10 +1,10 @@
 var id_intervalo = null;
-$(document).ready(function() {
+$(document).ready(function () {
   Actualizar_FechaActual_Input();
   id_intervalo = runSetInterval(Buscarturnos);
 });
 
-$("#ver_turnos").click(function() {
+$("#ver_turnos").click(function () {
   stopSetInterval(id_intervalo);
   $(".contenedor").empty();
   $("#agregar_turno").show();
@@ -12,51 +12,59 @@ $("#ver_turnos").click(function() {
 });
 
 //----------------ENVIA LOS DATOS AL ARCHIVO PEDIRTURNO.PHP---------------------------------------
-$("#cargarTurno").click(function() {
+$("#cargarTurno").click(function () {
+
   var nombre = $("input[name='nombre']").val();
   var apellido = $("input[name='apellido']").val();
   var contacto = $("input[name='contacto']").val();
-  var cancha = $("#cancha").val();
   var fecha = Obtener_Fecha_input();
-  var horario = $("#horario").val();
+  var cancha_id;
+  var horario;
 
-  if (cancha == "Roja") {
-    cancha = 1;
-  } else if ((cancha = "Verde")) {
-    cancha = 2;
-  } else {
-    cancha = 3;
+  cancha_id = document.getElementById("cancha").value;
+
+  if (cancha_id === 'Roja') {
+    cancha_id = 1;
+  } else if (cancha_id === 'Verde') {
+    cancha_id = 2;
+  } else if (cancha_id === 'Azul') {
+    cancha_id = 3;
   }
 
-  $.post(
-    "pedirTurno.php",
+  horario = document.getElementById("horario").value;
+  //deberia obtener las horas
+
+  $.post("pedirTurno.php",
     {
       nombre: nombre,
       apellido: apellido,
       contacto: contacto,
-      cancha: cancha,
-      fecha: fecha,
-      horario: horario
+      horario: horario,
+      cancha: cancha_id,
+      fecha: fecha
+
     },
-    function(data) {
+    function (data, status) {
+      alert(data);
       if (data == 1) {
-        $.notify.defaults({
-          globalPosition: "bottom right",
-          autoHideDelay: 3000
-        });
-        $.notify("Turno Cargado con Éxito", "success", { position: "left" });
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Turno cargado", "success", { position: 'left' });
       } else {
-        $.notify.defaults({
-          globalPosition: "bottom right",
-          autoHideDelay: 3000
-        });
-        $.notify("El turno ya Éxiste", "danger", { position: "left" });
+        if (data == 0) {
+          $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 6000 });
+          $.notify("El turno no se puede cargar", "danger", { position: 'left' });
+        }
+        else {
+          $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 6000 });
+          $.notify("Revise los datos cargados", "danger", { position: 'left' });
+        }
+
       }
-    }
-  );
+    });
+  updateModal();
 });
 //---------------------------------Cargar Usuario----------------------------------------
-$("#cargarUsuario").click(function() {
+$("#cargarUsuario").click(function () {
   var nombre = $("input[name='nombre_usuario']").val();
   var apellido = $("input[name='apellido_usuario']").val();
   var contacto = $("input[name='contacto_usuario']").val();
@@ -72,8 +80,8 @@ $("#cargarUsuario").click(function() {
       email: email,
       contraseña: contraseña
     },
-    function(data, status) {
-      
+    function (data, status) {
+
       if (data == -1) {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -97,7 +105,7 @@ $("#cargarUsuario").click(function() {
             email: email,
             contraseña: contraseña
           },
-          function(data, status) {
+          function (data, status) {
             console.log(data);
             if (data == -1) {
               $.notify.defaults({
@@ -123,7 +131,7 @@ $("#cargarUsuario").click(function() {
 
 //---------------------------------Cambiar contraseña----------------------------------------
 //No se si fallara porque el mail a veces esta vacio, llenarlo con basura en admin.php
-$("#cambiarContrasena").click(function() {
+$("#cambiarContrasena").click(function () {
   var contrasena = $("input[name='contrasena']").val();
   var nuevaContrasena = $("input[name='nuevaContrasena']").val();
 
@@ -133,7 +141,7 @@ $("#cambiarContrasena").click(function() {
       contrasena: contrasena,
       nuevaContrasena: nuevaContrasena
     },
-    function(data, status) {
+    function (data, status) {
       if (data == -1) {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -158,7 +166,7 @@ $("#cambiarContrasena").click(function() {
 });
 
 function importarCerrarSession() {
-  $.getScript("/AreaDos/js/cerrarSesion.js", function(
+  $.getScript("/AreaDos/js/cerrarSesion.js", function (
     script,
     textStatus,
     jqXHR
@@ -175,7 +183,7 @@ function Buscarturnos() {
     {
       fecha: fecha
     },
-    function(data) {
+    function (data) {
       if (data == -1) {
         $(".contenedor").empty();
         $("#agregar_turno").show();
@@ -198,7 +206,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
       cancha: id_cancha,
       fecha: fecha
     },
-    function(data, status) {
+    function (data, status) {
       alert(data);
       if (data == 1) {
         $.notify.defaults({
@@ -226,7 +234,7 @@ function eliminar_turno(id_cancha, hora, fecha) {
       hora: hora,
       fecha: fecha
     },
-    function(data, status) {
+    function (data, status) {
       if (data == 1) {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -277,7 +285,7 @@ function getTurnosPorCancha(id_cancha) {
       fecha: fecha,
       cancha: id_cancha
     },
-    function(data, nombre) {
+    function (data, nombre) {
       if (data == -1) {
         $(".contenedor").empty();
       } else {
@@ -290,7 +298,7 @@ function getTurnosPorCancha(id_cancha) {
 
 //_--------------------------------click a Estadisticas---------------------------------------//
 
-$("#estadisticas").click(function() {
+$("#estadisticas").click(function () {
   stopSetInterval(id_intervalo);
 
   $("#agregar_turno").hide();
@@ -335,37 +343,49 @@ function Obtener_Fecha_input() {
 function updateModal() {
   fecha = Obtener_Fecha_input();
   cancha_id = document.getElementById("cancha").value;
-  if (cancha_id === "Roja") {
+
+  if (cancha_id === 'Roja') {
     cancha_id = 1;
-  } else if (cancha_id === "Verde") {
+  } else if (cancha_id === 'Verde') {
     cancha_id = 2;
-  } else if (cancha_id === "Azul") {
+  } else if (cancha_id === 'Azul') {
     cancha_id = 3;
   }
 
-  $.post(
-    "buscarHorasDisponibles.php",
+  $.post("buscarHorasDisponibles.php",
     {
       fecha: fecha,
       id_cancha: cancha_id
     },
-    function(data) {
+    function (data) {
       if (data == -1) {
-        alert("-1");
-      } else {
-        var horas = JSON.parse(data);
-
+        $("#horario").empty();
         for (var j = 17; j <= 23; j++) {
-          if (horas[i] !== j) {
-            $("#horario").append("<option>" + j + "</option>");
-          }
+          $("#horario").append("<option>" + j + "</option>");
         }
       }
-    }
-  );
+      else {
+        alert(data);
+        var horas = JSON.parse(data);
+        var existe=false;
+      
+        $("#horario").empty();
+        for (var j = 17; j <= 23; j++) {
+          for (var i = 0; i < horas.length; i++) {
+            if (horas[i] == j) {
+              existe = true;
+            }
+          }
+          if (!existe) {
+            $("#horario").append("<option>" + j + "</option>");
+          }
+          existe=false;
+        }
+      }
+    });
 }
 
-$("#agregar_turno").click(function() {
+$("#agregar_turno").click(function () {
   updateModal();
 });
 
@@ -396,7 +416,7 @@ function actualizarSolicitudes() {
     {
       fecha: fecha
     },
-    function(data) {
+    function (data) {
       $(".contenedor").empty();
       $(".contenedor").append(data);
     }

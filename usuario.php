@@ -42,6 +42,11 @@ class Usuario{
         $sql="SELECT * FROM usuario WHERE email = '$email' AND tipo_usuario = 1";
         return $con->existe($sql);
     }
+    function getEmail($nombre,$apellido,$contacto){
+        $con=ConexionBD::getConexion();
+        $sql="SELECT email FROM usuario WHERE nombre = '$nombre' AND apellido = '$apellido' AND contacto= '$contacto'";
+        return $con->recuperar($sql);
+    }
 }
 ?> 
 
