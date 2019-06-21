@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
   Actualizar_FechaActual_Input();
-  id_intervalo=runSetInterval(seleccionarCancha);
+  
+  seleccionarCancha();
   limitarFechaCalendario();
 
 });
@@ -88,14 +89,7 @@ function getTurnosPorCancha(id_cancha) {
 };
 
 
-//-----------------FUNCION QUE PARA LA ACTUALIZACION DE LA PAGINA---------------------
-function stopSetInterval(id_intervalo) {
-  clearInterval(id_intervalo);
-}
-function runSetInterval(funcion) {
-  id = setInterval(funcion, 1200);
-  return id;
-}
+
 //------------------------------coloca la fecha actual al input---------------------
 function Actualizar_FechaActual_Input() {
   var fecha = new Date();
@@ -152,15 +146,14 @@ function RealizarSolicitud(hora) {
 
       }
     });
-  stopSetInterval(id_intervalo);
-  id_intervalo = runSetInterval(seleccionarCancha);
+  seleccionarCancha();
 };
 
 $("#TurnosPendientes").click(function () {
-  stopSetInterval(id_intervalo);
+  // stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
-  $("#titulo_Pendientes").html("Mis Turnos Pendientes").css("text-decoration", "underline");
-  $("#titulo_Pendientes").show();
+  
+  
   $(".contenedor").empty();
   $.get("TurnosPendientes.php", function (data, status) {
     if (data == -1) {
@@ -177,9 +170,10 @@ $("#TurnosPendientes").click(function () {
 
 $("#ver_turnos").click(function () {
   $(".contenedor").empty();
-  $("#titulo_Pendientes").hide();
+  
   $("#contenedor_canchasYfecha").show();
-  id_intervalo = runSetInterval(seleccionarCancha);
+  
+  seleccionarCancha();
 });
 //-----------------ELIMINAR TURNOS PENDIENTES-----------------------------
 function eliminar_turno(id_cancha, hora, fecha, id) {
@@ -209,10 +203,10 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
 $("#TurnosCorfirmados").click(function () {
   //Ocultamos la campanita que notifica que hay un turno Confirmado sin ver
   $("#campanaMisTurnos").hide();
-  stopSetInterval(id_intervalo);
+  // stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
-  $("#titulo_Pendientes").html("Mis Turnos Aceptados").css("text-decoration", "underline");
-  $("#titulo_Pendientes").show();
+  
+  
   $(".contenedor").empty();
   $.get("TurnosConfirmados.php", function (data, status) {
     if (data == -1) {

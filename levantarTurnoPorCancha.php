@@ -15,6 +15,6 @@
     if($r==1){
          $t->mostrarTurnosPorCancha($fecha,$color_cancha);
     }else{
-        $t->mostrarTurnosPorCanchaUser($fecha,$color_cancha);
+        $t->mostrarTurnosPorCanchaUser($email,$fecha,$color_cancha);
     }
  ?>

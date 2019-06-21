@@ -145,11 +145,11 @@ class Turno
         }
     }
 
-    function mostrarTurnosPorCanchaUser($fecha, $color_cancha){
+    function mostrarTurnosPorCanchaUser($email,$fecha, $color_cancha){
         $color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
-        $sql = "SELECT hora,estado FROM usuario_x_cancha WHERE fecha ='$fecha' AND cancha_id_cancha='$color_cancha'";
+        $sql = "SELECT hora,estado,usuario_email FROM usuario_x_cancha WHERE fecha ='$fecha' AND cancha_id_cancha='$color_cancha'";
 
         $respuesta = $con->recuperar($sql);
 
@@ -180,11 +180,16 @@ class Turno
                 if ($horario == $hora[0]) {
                     $bandera = 1;
                     $estado = $hora[1];
+                    $emailObtenido=$hora[2];
                 }
             }
             if ($bandera == 1 AND $estado==1) {
-                echo "<button type='button' class='btn btn-danger disabled' data-dismiss='modal' id='$horario'>Reservado</button>";
-            } else if ($bandera == 1 and $estado == 0) {
+                if($email == $emailObtenido){
+                    echo "<button type='button' class='btn btn-danger disabled' data-dismiss='modal' id='$horario'>Reservado</button>";
+                }else{
+                    echo "<button type='button' class='btn btn-secondary disabled' data-dismiss='modal' id='$horario'>Ocupado</button>";
+                }
+            } else if ($bandera == 1 and $estado == 0 and $email==$emailObtenido) {
                 echo "<button type='button' class='btn btn-info disabled' data-dismiss='modal'  style='margin:0' id='$horario'>Pendiente</button>";
             } else {
                 echo "<button type='button' class='btn btn-success' data-dismiss='modal'  style='margin:0' id='$horario' onclick='RealizarSolicitud($horario)'>Reservar</button>";

@@ -138,7 +138,7 @@
                         <!--comienzo Carta-->
                         <div class="card">
                             <div  id="turnos" class="card-header clearfix"  style="display: flex; flex-direction: row; justify-content: center">
-                                <!--<h4 class="card-title text-center" id="titulo_Pendientes"></h4>-->
+                                
                                 <div style="display: flex; flex-direction: row; justify-content: center">
                                     
                                 <div style="display: flex; flex-direction:column">

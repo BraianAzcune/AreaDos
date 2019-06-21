@@ -16,9 +16,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 
     $notificar= new NotificarAdministrador();
     $notificar->notificarNuevaSolicitud();
-
-
-
     //Fin enviar notificacion admin
 
     return $respuesta;
