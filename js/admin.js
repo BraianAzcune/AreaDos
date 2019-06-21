@@ -1,14 +1,17 @@
-var id_intervalo = null;
+
 $(document).ready(function () {
   Actualizar_FechaActual_Input();
-  id_intervalo = runSetInterval(Buscarturnos);
+    
+    Buscarturnos();
+    
 });
 
 $("#ver_turnos").click(function () {
-  stopSetInterval(id_intervalo);
+  
   $(".contenedor").empty();
   $("#agregar_turno").show();
-  id_intervalo = runSetInterval(Buscarturnos);
+  
+  Buscarturnos();
 });
 
 //----------------ENVIA LOS DATOS AL ARCHIVO PEDIRTURNO.PHP---------------------------------------
@@ -49,6 +52,7 @@ $("#cargarTurno").click(function () {
       if (data == 1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("Turno cargado", "success", { position: 'left' });
+        Buscarturnos();
       } else {
         if (data == 0) {
           $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 6000 });
@@ -177,6 +181,7 @@ function importarCerrarSession() {
 
 //---------------------------archiVo php para obtener los turnos de la respectiva fecha--------------------------------
 function Buscarturnos() {
+  $('#filtrado').prop('selectedIndex',0);//Ponemos el filtro en todos
   var fecha = Obtener_Fecha_input();
   $.post(
     "levantarTurno.php",
@@ -241,6 +246,7 @@ function eliminar_turno(id_cancha, hora, fecha) {
           autoHideDelay: 3000
         });
         $.notify("Turno Eliminado", "success", { position: "left" });
+        Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
       } else {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -257,22 +263,16 @@ function seleccionarCancha() {
   var id_cancha;
   var filtrarPor = document.getElementById("filtrado").value;
   if (filtrarPor === "Todos") {
-    stopSetInterval(id_intervalo);
-    id_intervalo = runSetInterval(Buscarturnos);
+    Buscarturnos();
   } else if (filtrarPor === "Cancha Roja") {
     id_cancha = 1;
-    stopSetInterval(id_intervalo);
-    id_intervalo = runSetInterval(getTurnosPorCancha(id_cancha));
+    getTurnosPorCancha(id_cancha);
   } else if (filtrarPor === "Cancha Verde") {
-    id_cancha = 2;
-    stopSetInterval(id_intervalo);
-    id_intervalo = runSetInterval(getTurnosPorCancha(id_cancha));
-
+    id_cancha = 2;    
     getTurnosPorCancha(id_cancha);
   } else if (filtrarPor === "Cancha Azul") {
     id_cancha = 3;
-    stopSetInterval(id_intervalo);
-    id_intervalo = runSetInterval(getTurnosPorCancha(id_cancha));
+    getTurnosPorCancha(id_cancha);
   }
   return id_cancha;
 }
@@ -299,22 +299,14 @@ function getTurnosPorCancha(id_cancha) {
 //_--------------------------------click a Estadisticas---------------------------------------//
 
 $("#estadisticas").click(function () {
-  stopSetInterval(id_intervalo);
+  
 
   $("#agregar_turno").hide();
 
   $(".contenedor").empty();
 });
 
-//-----------------FUNCION QUE PARA LA ACTUALIZACION DE LA PAGINA---------------------
-function stopSetInterval(id_intervalo) {
-  clearInterval(id_intervalo);
-}
 
-function runSetInterval(funcion) {
-  id = setInterval(funcion, 1500);
-  return id;
-}
 
 //coloca la fecha actual al input
 function Actualizar_FechaActual_Input() {
@@ -391,8 +383,12 @@ $("#agregar_turno").click(function () {
 
 //-----------------------SOLICITUDES-----------------------------
 
-$("#solicitudes").click(function () {
-  stopSetInterval(id_intervalo);
+$("#solicitudes").click(function() {
+
+  //Ocultamos la campanita que notifica que hay una solicitud
+  $("#campanaSolicitudes").hide();
+
+  
 
   //borramos lo que tiene el contenedor compartido.
   $(".contenedor").empty();
@@ -401,7 +397,7 @@ $("#solicitudes").click(function () {
   $("#agregar_turno").hide();
 
   //ejecutar ajax para refrescar solicitudes nuevas
-  id_intervalo = runSetInterval(actualizarSolicitudes);
+  actualizarSolicitudes();
 });
 
 function actualizarSolicitudes() {

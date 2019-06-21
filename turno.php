@@ -61,7 +61,7 @@ class Turno
         if (empty($respuesta)){ //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
                 return -1;
             } else {
-            echo "<div class='table table-hover'>
+            echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
                             <tr>
@@ -110,7 +110,7 @@ class Turno
             {
                 return -1;
             } else {
-                echo "<div class='table table-hover'>
+                echo "<div class='table-responsive table-hover'>
                 <table class='table'>
                     <thead>
                         <tr>
@@ -245,7 +245,7 @@ class Turno
                         <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
                 </div>";
         }else{
-            echo "<div class='table table-hover'>
+            echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
                             <tr>

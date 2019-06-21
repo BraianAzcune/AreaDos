@@ -55,9 +55,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class=""></i>
+                        <a href="#" style="display:flex; flex-direction:row; justify-content: flex-start">
+                            
                             <p id="solicitudes">Solicitudes</p>
+                            <i id="campanaSolicitudes" class="fas fa-bell " style="display:none;"></i>
                         </a>
                     </li>
                      <li>
@@ -116,7 +117,7 @@
                                     <p><span class="d-lg-none d-md-block">Mi Cuenta</span></p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Datos Personales</a>
+                                    
                                     <a class="dropdown-item" href="#">
                                         <p data-toggle="modal" data-target="#ModalCambiarContrasena">Cambiar Contrase&ntildea</p>
                                     </a>
@@ -339,5 +340,7 @@
 <script src="js/admin.js"></script>
 <script src="js/notify.js"></script>
 <script src="js/cerrarSesion.js"></script>
+<!-- Se necesita el email del administrador -->
+<script id="scriptadminwebsocket" src="js/adminWebSocket.js" data-email="<?php echo $_SESSION['email']?>"></script>
 
 </html>

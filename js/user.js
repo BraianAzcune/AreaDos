@@ -141,6 +141,7 @@ function RealizarSolicitud(hora) {
       fecha: fecha,
     },
     function (data, status) {
+      //@BUG Si el servidor falla la insercionn y php responde, el estado sera success.
       if (status == "success") {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("Se registro su su solicitud de turno", "success", { position: 'left' });
@@ -206,6 +207,8 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
 }
 //---------------------VER TURNOS CONFIRMADOS-------------------------
 $("#TurnosCorfirmados").click(function () {
+  //Ocultamos la campanita que notifica que hay un turno Confirmado sin ver
+  $("#campanaMisTurnos").hide();
   stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
   $("#titulo_Pendientes").html("Mis Turnos Aceptados").css("text-decoration", "underline");
