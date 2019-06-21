@@ -117,7 +117,7 @@
                                     <p><span class="d-lg-none d-md-block">Mi Cuenta</span></p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Datos Personales</a>
+                                    
                                     <a class="dropdown-item" href="#">
                                         <p data-toggle="modal" data-target="#ModalCambiarContrasena">Cambiar Contrase&ntildea</p>
                                     </a>
