@@ -151,12 +151,12 @@
                                             <input style="padding:8px;" type="date" name="dias" value=""
                                                 data-toggle="tooltip"
                                                 title="Aqui podras seleccionar la fecha y te mostrara una tabla con los horarios y turnos reservados para las respectivas canchas!"
-                                                onchange="Buscarturnos()">
+                                                onchange="filtrarPorFecha()">
                                         </div>
                                         <div class="col-md-2"></div>
                                             <div id="filtrarColor" class="form-group">
                                                 <label for="sel1" style="font-size:18px;"> Filtrar:</label>
-                                                <select class="custom-select" onchange="seleccionarCancha()"
+                                                <select class="custom-select" onchange="filtrarPorCancha()"
                                                     id="filtrado">
                                                     <option selected="selected">Todos</option>
                                                     <option>Cancha Roja</option>
