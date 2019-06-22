@@ -202,7 +202,7 @@ class Turno
 //LADO USUARIO
     function mostrarTurnosPendientes($email){
         $con = ConexionBD::getConexion();
-        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 ";
+        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 order by fecha,hora";
         $respuesta = $con->recuperar($sql);
 $id=0;
         //control de resultado
