@@ -212,7 +212,7 @@ $id=0;
                 </div>";
         }else{
             foreach ($respuesta as $turno_pendiente){
-                echo "<div class='card'>
+                echo "<div id=$id class='card'>
                     <div class='card-body'>
                        <div class='d-flex'>
                             <div class='p-2 mr-auto'>
