@@ -29,6 +29,7 @@
     <!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/campana.css">
 
 </head>
 
@@ -58,7 +59,7 @@
                         <a href="#" style="display:flex; flex-direction:row; justify-content: flex-start">
                             
                             <p id="solicitudes">Solicitudes</p>
-                            <i id="campanaSolicitudes" class="fas fa-bell " style="display:none;"></i>
+                            <i id="campanaSolicitudes" class="fas fa-bell" style="display:none;"></i>
                         </a>
                     </li>
                      <li>

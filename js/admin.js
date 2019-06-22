@@ -332,6 +332,7 @@ $("#solicitudes").click(function () {
 
   //Ocultamos la campanita que notifica que hay una solicitud
   $("#campanaSolicitudes").hide();
+  $("#campanaSolicitudes").removeClass("animate-flicker");
 
 
 
