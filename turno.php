@@ -204,7 +204,7 @@ class Turno
         $con = ConexionBD::getConexion();
         $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 ";
         $respuesta = $con->recuperar($sql);
-
+$id=0;
         //control de resultado
         if (empty($respuesta)){
             echo "<div style='display: flex; justify-content:center;'>
