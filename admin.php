@@ -223,7 +223,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Teléfono:</label>
-                                <input type="number" class="form-control" name="contacto" min="1">
+                                <input type="tel" class="form-control" name="contacto" min="1">
                             </div>
                             <div class="form-group">
                                 <label for="sel1">Cancha:</label>
