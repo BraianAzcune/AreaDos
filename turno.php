@@ -235,6 +235,41 @@ class Turno
             }
         }
     }
+    function mostrarTurnosPendientesPorCancha($email,$fecha,$color_cancha){////esto anda como el orto
+        $con = ConexionBD::getConexion();
+        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 ";
+        $respuesta = $con->recuperar($sql);
+
+        //control de resultado
+        if (empty($respuesta)){
+            echo "<div style='display: flex; justify-content:center;'>
+                        <h2 style='font-weight:bold; color: #2a5788'>No hay ningun turno pendiente<h2>
+                </div>";
+        }else{
+            foreach ($respuesta as $turno_pendiente){
+                echo "<div class='card'>
+                    <div class='card-body'>
+                       <div class='d-flex'>
+                            <div class='p-2 mr-auto'>
+                                <p class='card-title'>Fecha: $turno_pendiente[2]</p>
+                           </div>
+
+                            <div class='p-2'>
+                                <p class='card-title'>Hora:  $turno_pendiente[1]  hs</p>
+                            </div>
+                            <div class='p-2'>
+                                <p id='' class='card-title'>Cancha: $turno_pendiente[3]</p>
+                            </div>
+
+                        </div>
+                            <p class='card-text' style='font-size:17px;'>Turno esperando respuesta</p>
+                            <a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Solicitud</a>
+                    </div>
+                </div>";
+                $id++;
+            }
+        }
+    }
 
     //el administrador usa este metodo para obtener todos los turnos no confirmados, (los que tienen estado=0)
     //dada cierta fecha
@@ -298,7 +333,66 @@ class Turno
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
     }*/
     }
-
+    function mostrarSolicitudesPorCancha($fecha,$color_cancha){
+        $muestra_color=null;
+        $color = null;
+        $con = ConexionBD::getConexion();
+        $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora,usuario.email FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND cancha_id_cancha='$color_cancha' AND usuario_x_cancha.estado=0;";
+        $respuesta = $con->recuperar($sql);
+        //control de resultado
+        if (empty($respuesta)){
+            echo "<div style='display: flex; justify-content:center;'>
+                        <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
+                </div>";
+        }else{
+            echo "<div class='table-responsive table-hover'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Apellido</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Nombre</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Contacto</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+            //comienzo foreach
+            foreach ($respuesta as $solicitud) {
+                $color = $solicitud[3];
+                if ($color == 1) {
+                      $color = "#EA2027";
+                      $muestra_color="Roja";
+                } elseif ($color == 2) {
+                    $color = "#009432";
+                    $muestra_color="Verde";
+                } else {
+                    $color = "#0652DD";
+                    $muestra_color="Azul";
+                }
+                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$solicitud[4]</th>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[1]</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[0]</td>";
+                echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
+                    <td class='text-center'>
+                        <i class='fas fa-check-square' onclick=confirmarSolicitudDeTurno('$solicitud[5]',$solicitud[4],$solicitud[3],'$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
+                    </td>
+                </tr>";
+            }
+            echo "</tbody></table></div>";
+            //$solicitud[5]-> email
+            //$solicitud[4]-> hora
+            //$solicitud[3]-> id_cancha
+            
+        }
+            /*foreach ($respuesta as $solicitud){
+                echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
+                contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
+                //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
+    }*/
+    }
 
 
    //-----------------LADO USUARIO------------
