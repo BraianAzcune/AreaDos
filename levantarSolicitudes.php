@@ -9,7 +9,6 @@
         
     } 
 
-
     include('./turno.php');
     $fecha=$_POST['fecha'];
     $t= new Turno();
