@@ -220,6 +220,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
           autoHideDelay: 3000
         });
         $.notify("Solicitud confirmada", "success", { position: "left" });
+        BuscarSolicitudes();
       } else {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -232,7 +233,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
 }
 
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
-function eliminar_turno(id_cancha, hora, fecha) {
+function eliminar_turno(id_cancha, hora, fecha,tipo="turno") {
   $.post(
     "borrarTurno.php",
     {
@@ -246,14 +247,25 @@ function eliminar_turno(id_cancha, hora, fecha) {
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        $.notify("Turno Eliminado", "success", { position: "left" });
-        Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
+        if(tipo=="turno"){
+          $.notify("Turno Eliminado", "success", { position: "left" });
+          Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
+        }else{
+          $.notify("Solicitud eliminada", "success", { position: "left" });
+          BuscarSolicitudes();
+        }
+        
       } else {
         $.notify.defaults({
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        $.notify("Error al eliminar el turno", "warning", { position: "left" });
+        if(tipo=="turno"){
+          $.notify("Error al eliminar el turno", "warning", { position: "left" });
+        }else{
+          $.notify("Error al eliminar la solicitud", "warning", { position: "left" });
+        }
+        
       }
     }
   );

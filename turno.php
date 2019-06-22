@@ -317,7 +317,7 @@ class Turno
                 echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
                     <td class='text-center'>
                         <i class='fas fa-check-square' onclick=confirmarSolicitudDeTurno('$solicitud[5]',$solicitud[4],$solicitud[3],'$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
-                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha','solicitud') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
@@ -377,7 +377,7 @@ class Turno
                 echo "<td style='font-size:18px; color:$color'>$solicitud[2]</td>
                     <td class='text-center'>
                         <i class='fas fa-check-square' onclick=confirmarSolicitudDeTurno('$solicitud[5]',$solicitud[4],$solicitud[3],'$fecha') style='color:#009432;padding:5px;cursor:pointer;font-size:20px;'></i>
-                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i class='fas fa-minus-square' onclick=eliminar_turno($solicitud[3],$solicitud[4],'$fecha','solicitud') style='color:#EA2027;padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
