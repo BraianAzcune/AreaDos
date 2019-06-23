@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   Actualizar_FechaActual_Input();
-  
+
   seleccionarCancha();
   limitarFechaCalendario();
 
@@ -46,12 +46,12 @@ $("#cambiarContrasena").click(function () {
         $.notify("Contraseña incorrecta", "danger", { position: 'left' });
 
         $('.modalpasschange').val('');
-        
+
       } else if (data == 1) {
-        
+
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("Contraseña cambiada. Cerrando sesión", "success", { position: 'left' });
-        
+
         setTimeout(importarCerrarSession, 2000);
 
 
@@ -60,12 +60,12 @@ $("#cambiarContrasena").click(function () {
 });
 
 
-function importarCerrarSession(){
-  
+function importarCerrarSession() {
+
   $.getScript("/AreaDos/js/cerrarSesion.js", function (script, textStatus, jqXHR) {
-            
-    cerrarSesion();          
-});
+
+    cerrarSesion();
+  });
 }
 
 
@@ -152,8 +152,8 @@ function RealizarSolicitud(hora) {
 $("#TurnosPendientes").click(function () {
   // stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
-  
-  
+
+
   $(".contenedor").empty();
   $.get("TurnosPendientes.php", function (data, status) {
     if (data == -1) {
@@ -170,9 +170,9 @@ $("#TurnosPendientes").click(function () {
 
 $("#ver_turnos").click(function () {
   $(".contenedor").empty();
-  
+
   $("#contenedor_canchasYfecha").show();
-  
+
   seleccionarCancha();
 });
 //-----------------ELIMINAR TURNOS PENDIENTES-----------------------------
@@ -187,7 +187,7 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
     function (data, status) {
       if (data == 1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("Turno Eliminado", "warning", { position: 'left' });
+        $.notify("Turno Eliminado", "success", { position: 'left' });
         // agrege esto
         var stringid = "#" + id;
         $(stringid).remove();
@@ -195,9 +195,35 @@ function eliminar_turno(id_cancha, hora, fecha, id) {
 
       } else {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
-        $.notify("Error al eliminar el turno", "success", { position: 'left' });
+        $.notify("Error al eliminar el turno", "warning", { position: 'left' });
       }
     });
+}
+
+function eliminar_solicitud(email,id_cancha, hora, fecha, id) {
+  $.post("borrarSolicitud.php",
+    {
+      email: email,
+      id: id_cancha,
+      hora: hora,
+      fecha: fecha
+    },
+    function (data, status) {
+      if (data == 1) {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Solicitud Eliminada", "success", { position: 'left' });
+        // agrege esto
+        var stringid = "#" + id;
+        $(stringid).remove();
+
+
+      } else {
+        $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
+        $.notify("Error al eliminar el solicitud", "warning", { position: 'left' });
+      }
+    });
+
+
 }
 //---------------------VER TURNOS CONFIRMADOS-------------------------
 $("#TurnosCorfirmados").click(function () {
@@ -205,8 +231,8 @@ $("#TurnosCorfirmados").click(function () {
   $("#campanaMisTurnos").hide();
   // stopSetInterval(id_intervalo);
   $("#contenedor_canchasYfecha").hide();
-  
-  
+
+
   $(".contenedor").empty();
   $.get("TurnosConfirmados.php", function (data, status) {
     if (data == -1) {
@@ -227,44 +253,44 @@ $("#TurnosCorfirmados").click(function () {
 
 //------------------------LIMITAR CALENDARIO--------------------------------
 
-  function limitarFechaCalendario(){
+function limitarFechaCalendario() {
 
-      var fechaMIN = new Date();
-    var fechaMAX = new Date();
-    var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-    fechaMAX.setTime(fechaMAX.getTime() + weekInMilliseconds);
+  var fechaMIN = new Date();
+  var fechaMAX = new Date();
+  var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+  fechaMAX.setTime(fechaMAX.getTime() + weekInMilliseconds);
 
-      //------------dia minimo (fecha actual)---------------------
-      var diaMIN = fechaMIN.getDate();
-      var mesMIN = fechaMIN.getMonth();
-      mesMIN++;
-      var anioMIN = fechaMIN.getFullYear();
-      if (diaMIN < 10) {
-         diaMIN = '0' + diaMIN; //agrega cero si el menor de 10
-      }
-      if (mesMIN < 10) {
-         mesMIN = '0' + mesMIN;
-      }
-      var fechaMinima = anioMIN + "-" + mesMIN + "-" + diaMIN;
+  //------------dia minimo (fecha actual)---------------------
+  var diaMIN = fechaMIN.getDate();
+  var mesMIN = fechaMIN.getMonth();
+  mesMIN++;
+  var anioMIN = fechaMIN.getFullYear();
+  if (diaMIN < 10) {
+    diaMIN = '0' + diaMIN; //agrega cero si el menor de 10
+  }
+  if (mesMIN < 10) {
+    mesMIN = '0' + mesMIN;
+  }
+  var fechaMinima = anioMIN + "-" + mesMIN + "-" + diaMIN;
 
 
-      //------------dia maximo (una week despues)---------------
-      var diaMAX = fechaMAX.getDate();
-      var mesMAX = fechaMAX.getMonth();
-      mesMAX++;
-      var anioMAX = fechaMAX.getFullYear();
-      if (diaMAX < 10) {
-         diaMAX = '0' + diaMAX; //agrega cero si el menor de 10
-      }
-      if (mesMAX < 10) {
-         mesMAX = '0' + mesMAX;
-      }
-      var fechaMaxima = anioMAX + "-" + mesMAX + "-" + diaMAX;
+  //------------dia maximo (una week despues)---------------
+  var diaMAX = fechaMAX.getDate();
+  var mesMAX = fechaMAX.getMonth();
+  mesMAX++;
+  var anioMAX = fechaMAX.getFullYear();
+  if (diaMAX < 10) {
+    diaMAX = '0' + diaMAX; //agrega cero si el menor de 10
+  }
+  if (mesMAX < 10) {
+    mesMAX = '0' + mesMAX;
+  }
+  var fechaMaxima = anioMAX + "-" + mesMAX + "-" + diaMAX;
 
-      //---------------------Agrega atributos min and max al input-----------
-      $("#dias").attr({
-       "max" : fechaMaxima,
-       "min" : fechaMinima
-    });
-      
-    }
+  //---------------------Agrega atributos min and max al input-----------
+  $("#dias").attr({
+    "max": fechaMaxima,
+    "min": fechaMinima
+  });
+
+}
