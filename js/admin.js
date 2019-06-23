@@ -3,13 +3,14 @@ $(document).ready(function () {
   Actualizar_FechaActual_Input();
 
   Buscarturnos();
-  
+
 
 });
 
 $("#ver_turnos").click(function () {
 
   $(".contenedor").empty();
+  $("#turnos").show();
   $("#agregar_turno").show();
   opcionActual = "Turnos";
   Buscarturnos();
@@ -233,7 +234,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
 }
 
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
-function eliminar_turno(id_cancha, hora, fecha,tipo="turno") {
+function eliminar_turno(id_cancha, hora, fecha, tipo = "turno") {
   $.post(
     "borrarTurno.php",
     {
@@ -247,25 +248,25 @@ function eliminar_turno(id_cancha, hora, fecha,tipo="turno") {
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        if(tipo=="turno"){
+        if (tipo == "turno") {
           $.notify("Turno Eliminado", "success", { position: "left" });
           Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
-        }else{
+        } else {
           $.notify("Solicitud eliminada", "success", { position: "left" });
           BuscarSolicitudes();
         }
-        
+
       } else {
         $.notify.defaults({
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        if(tipo=="turno"){
+        if (tipo == "turno") {
           $.notify("Error al eliminar el turno", "warning", { position: "left" });
-        }else{
+        } else {
           $.notify("Error al eliminar la solicitud", "warning", { position: "left" });
         }
-        
+
       }
     }
   );
@@ -293,17 +294,17 @@ function filtrarPorCancha() {
     }
   } else if (opcionActual == "Turnos") {
     if (id_cancha == 0) {
-      
+
       Buscarturnos();
     } else {
-      
+
       getTurnosPorCancha(id_cancha);
     }
   }
 }
 
 function filtrarPorFecha() {
-  
+
   if (opcionActual === "Solicitudes") {
     BuscarSolicitudes();
   } else if (opcionActual === "Turnos") {
@@ -389,16 +390,15 @@ function getSolicitudesPorChancha(id_cancha) {
   );
 }
 //_--------------------------------click a Estadisticas---------------------------------------//
-
 $("#estadisticas").click(function () {
-
-
+  $("#turnos").hide();
   $("#agregar_turno").hide();
-
+  // $("#tit_estadistica").show(); //nose que es, lo copie de leo
   $(".contenedor").empty();
+  $.get("estadisticas.php", function (data, status) {
+    $(".contenedor").append(data);
+  });
 });
-
-
 
 //coloca la fecha actual al input
 function Actualizar_FechaActual_Input() {
