@@ -52,7 +52,7 @@
                     <li>
                         <a href="#">
                             <i class=""></i>
-                            <p data-toggle="modal" data-target="#ModalUsuario">Cargar Usuarios</p>
+                            <p data-toggle="modal" data-target="#ModalUsuario">Cargar Usuario</p>
                         </a>
                     </li>
                     <li>
@@ -272,7 +272,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="contacto">Contacto:</label>
-                                <input type="number" class="form-control" name="contacto_usuario" min="1">
+                                <input type="tel" class="form-control" name="contacto_usuario" min="1">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>

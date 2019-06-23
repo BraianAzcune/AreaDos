@@ -1,9 +1,9 @@
-
+var opcionActual = "Turnos"; //identifica la opcion del menu actual que se esta visualizando.
 $(document).ready(function () {
   Actualizar_FechaActual_Input();
 
   Buscarturnos();
-  var opcionActual = "Turnos"; //identifica la opcion del menu actual que se esta visualizando.
+  
 
 });
 
@@ -284,23 +284,26 @@ function filtrarPorCancha() {
   } else if (filtrarPor === "Cancha Azul") {
     id_cancha = 3;
   }
-  if (opcionActual === "Solicitudes") {
+  if (opcionActual == "Solicitudes") {
     if (id_cancha == 0) {
       BuscarSolicitudes();
     }
     else {
       getSolicitudesPorChancha(id_cancha);
     }
-  } else if (opcionActual === "Turnos") {
+  } else if (opcionActual == "Turnos") {
     if (id_cancha == 0) {
+      
       Buscarturnos();
     } else {
+      
       getTurnosPorCancha(id_cancha);
     }
   }
 }
 
 function filtrarPorFecha() {
+  
   if (opcionActual === "Solicitudes") {
     BuscarSolicitudes();
   } else if (opcionActual === "Turnos") {
