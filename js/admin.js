@@ -118,7 +118,7 @@ $("#cargarUsuario").click(function () {
                 globalPosition: "bottom right",
                 autoHideDelay: 3000
               });
-              $.notify("fayo el envio", "danger", { position: "left" });
+              $.notify("fallo el envio", "danger", { position: "left" });
             } else {
               $.notify.defaults({
                 globalPosition: "bottom right",
@@ -129,11 +129,11 @@ $("#cargarUsuario").click(function () {
               });
             }
           }
-        );
-      }
+        );//termina Enviar mail post
+      }//termina cargar usuario exitosamente
     }
-  );
-});
+  );//termina post cargar usuario
+});//termina evento cargar usuario
 
 //---------------------------------Cambiar contraseña----------------------------------------
 //No se si fallara porque el mail a veces esta vacio, llenarlo con basura en admin.php
