@@ -166,7 +166,7 @@ class Turno
                 echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[3]</a></td>";
                 echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[4]</a></td>";
                 echo "<td class='text-center'>
-                        <i onclick=eliminar_turno($turno[1],$turno[0],'$fecha') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                        <i onclick=eliminar_turno('$turno[1]','$turno[0]','$fecha') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
