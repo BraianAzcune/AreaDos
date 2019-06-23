@@ -109,7 +109,7 @@ class Turno
         $muestra_color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
-        $sql = "SELECT hora,cancha_id_cancha,nombre,apellido,contacto FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha ='$fecha' AND estado=1 ORDER BY hora,cancha_id_cancha";
+        $sql = "SELECT hora,cancha_id_cancha,nombre,apellido,contacto FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE cancha_id_cancha='$color_cancha' AND fecha ='$fecha' AND estado=1 ORDER BY hora,cancha_id_cancha";
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)) //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
