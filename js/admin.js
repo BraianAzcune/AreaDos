@@ -1,9 +1,9 @@
-
+var opcionActual = "Turnos"; //identifica la opcion del menu actual que se esta visualizando.
 $(document).ready(function () {
   Actualizar_FechaActual_Input();
 
   Buscarturnos();
-  var opcionActual = "Turnos"; //identifica la opcion del menu actual que se esta visualizando.
+  
 
 });
 
