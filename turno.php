@@ -54,21 +54,25 @@ class Turno
         $color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
-        $sql = "SELECT * FROM usuario_x_cancha WHERE fecha ='$fecha' AND estado=1 ORDER BY hora,cancha_id_cancha";
+        $sql = "SELECT hora,cancha_id_cancha,nombre,apellido,contacto FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha ='$fecha' AND estado=1 ORDER BY hora,cancha_id_cancha";
 
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)){ //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
-                return -1;
+            echo "<div style='display: flex; justify-content:center;'>
+            <h2 style='font-weight:bold; color: #2a5788'>No hay turnos para esta fecha<h2>
+    </div>";
             } else {
-            echo "<div class='table-responsive table-hover'>
+                        echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
                             <tr>
                                 <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
-                                <th scope='col' style='font-weight:bold; color: #2a5788'>Reserva</th>
                                 <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
-                                <th scope='col'></th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Nombre</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Apellido</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Contacto</th>
+                                
                             </tr>
                         </thead>
                         <tbody>";
@@ -85,11 +89,13 @@ class Turno
                     $color = "#0652DD";
                     $muestra_color="Azul";
                 }
-                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$turno[2]</th>";
-                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
-                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
-                    <td class='text-center'>
-                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$turno[0]</th>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[2]</a></td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[3]</a></td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[4]</a></td>";
+                echo "<td class='text-center'>
+                        <i onclick=eliminar_turno($turno[1],$turno[0],'$fecha') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
@@ -103,7 +109,7 @@ class Turno
         $muestra_color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
-        $sql = "SELECT * FROM usuario_x_cancha WHERE fecha ='$fecha' AND cancha_id_cancha='$color_cancha' AND estado=1 ORDER BY hora";
+        $sql = "SELECT hora,cancha_id_cancha,nombre,apellido,contacto FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha ='$fecha' AND estado=1 ORDER BY hora,cancha_id_cancha";
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)) //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
@@ -111,15 +117,18 @@ class Turno
                 return -1;
             } else {
                 echo "<div class='table-responsive table-hover'>
-                <table class='table'>
-                    <thead>
-                        <tr>
-                            <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
-                            <th scope='col' style='font-weight:bold; color: #2a5788'>Reserva</th>
-                            <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
-                        </tr>
-                    </thead>
-                    <tbody>";
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Hora</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Cancha</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Nombre</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Apellido</th>
+                                <th scope='col' style='font-weight:bold; color: #2a5788'>Contacto</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>";
             //comienzo foreach
             foreach ($respuesta as $turno) {
                 $color = $turno[1];
@@ -133,11 +142,21 @@ class Turno
                     $color = "#0652DD";
                     $muestra_color="Azul";
                 }
-                echo "<tr><th scope='row' style='font-size:18px;color:$color'>$turno[2]</th>";
-                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
-                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
-                    <td class='text-center'>
-                        <i onclick=eliminar_turno($turno[1],$turno[2],'$turno[3]') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                // echo "<tr><th scope='row' style='font-size:18px;color:$color'>$turno[2]</th>";
+                // echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
+                // echo "<td style='font-size:18px; color:$color'>$muestra_color</td>
+                //     <td class='text-center'>
+                //         <i onclick=eliminar_turno($turno[1],$turno[0],'$fecha') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
+                //     </td>
+                // </tr>";
+                //
+                echo "<tr><th scope='row' style='font-size:18px; color:$color'>$turno[0]</th>";
+                echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[2]</a></td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[3]</a></td>";
+                echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[4]</a></td>";
+                echo "<td class='text-center'>
+                        <i onclick=eliminar_turno($turno[1],$turno[0],'$fecha') class='far fa-trash-alt'  style='padding:5px;cursor:pointer;font-size:20px;'></i>
                     </td>
                 </tr>";
             }
