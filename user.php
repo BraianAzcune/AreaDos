@@ -24,6 +24,7 @@
     <!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/campana.css">
 </head>
 
 <body class="">

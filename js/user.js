@@ -229,6 +229,7 @@ function eliminar_solicitud(email,id_cancha, hora, fecha, id) {
 $("#TurnosCorfirmados").click(function () {
   //Ocultamos la campanita que notifica que hay un turno Confirmado sin ver
   $("#campanaMisTurnos").hide();
+  $("#campanaMisTurnos").removeClass("animate-flicker");
   // stopSetInterval(id_intervalo);
   $("#turnos").hide();
 
