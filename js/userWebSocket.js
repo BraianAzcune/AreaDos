@@ -68,6 +68,7 @@ function TurnoPendienteConfirmado(){
   $.notify("Se confirmo un turno.\nVaya a 'Mis turnos' para mas informacion", "success", { position: "left" });
   //Hacemos aparecer la campana de notificaciones en la seccion 'Mis turnos'
   $("#campanaMisTurnos").show();
+  $("#campanaSolicitudes").addClass("animate-flicker");
 
 
 }

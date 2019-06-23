@@ -357,6 +357,7 @@ $("#solicitudes").click(function () {
 
   //Ocultar cosas del boton ver turnos
   $("#agregar_turno").hide();
+  $("#turnos").show();
 
   //actualiza la variable global que indica el menu actual
   opcionActual = "Solicitudes";
