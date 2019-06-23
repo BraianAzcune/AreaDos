@@ -38,7 +38,7 @@
         <div class="sidebar" data-color="dark">
             <div class="logo">
                 <a href="#" class="simple-text logo-normal" style="font-weight:bold;">
-                    Administración
+                    Mi Menu
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -83,7 +83,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" style="font-weight:bold;">Administración</a>
+                        <a class="navbar-brand" style="font-weight:bold; font-size:2.3em;">Administración de Área Dos</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">

@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Area Dos</title>
+    <title>Área Dos</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -31,6 +31,7 @@
         <div class="sidebar" data-color="dark">
             <div class="logo">
                 <a class="simple-text logo-normal" style="font-weight:bold;" id="saludoParaUsuario">
+                Mi Menu
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -69,7 +70,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" style="font-weight:bold; font-size:2.3em;">Area Dos</a>
+                        <a class="navbar-brand" style="font-weight:bold; font-size:2.3em;">Área Dos</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -107,7 +108,7 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Datos Personales</a>
+                                
                                     <a class="dropdown-item" href="#">
                                         <p data-toggle="modal" data-target="#ModalCambiarContrasena">Cambiar Contrase&ntildea</p>
                                     </a>
@@ -217,7 +218,7 @@
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
-                        </script>, DiseÃ±ado por
+                        </script>, Diseñado por
                         <a href="#" target="_blank">D&D Software</a>.
                     </div>
             </div>
