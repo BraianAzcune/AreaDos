@@ -234,7 +234,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
 }
 
 //---------------------------------------------Eliminar turno---------------------------------------------------------------
-function eliminar_turno(id_cancha, hora, fecha, tipo = "turno") {
+function eliminar_turno(id_cancha, hora, fecha) {
   $.post(
     "borrarTurno.php",
     {
@@ -248,29 +248,41 @@ function eliminar_turno(id_cancha, hora, fecha, tipo = "turno") {
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        if (tipo == "turno") {
-          $.notify("Turno Eliminado", "success", { position: "left" });
-          Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
-        } else {
-          $.notify("Solicitud eliminada", "success", { position: "left" });
-          BuscarSolicitudes();
-        }
-
+        $.notify("Turno Eliminado", "success", { position: "left" });
+        Buscarturnos();//Refrescamos los turnos, para que desaparezca el turno borrado.
       } else {
         $.notify.defaults({
           globalPosition: "bottom right",
           autoHideDelay: 3000
         });
-        if (tipo == "turno") {
-          $.notify("Error al eliminar el turno", "warning", { position: "left" });
-        } else {
-          $.notify("Error al eliminar la solicitud", "warning", { position: "left" });
-        }
-
+        $.notify("Error al eliminar el turno", "warning", { position: "left" });
       }
     }
   );
 }
+function eliminar_solicitud(id_cancha, hora, fecha, email) {
+  $.post(
+    "borrarSolicitud.php",
+    {
+      id: id_cancha,
+      hora: hora,
+      fecha: fecha,
+      email: email
+    },
+    function (data, status) {
+      if (data == 1) {
+        $.notify.defaults({
+          globalPosition: "bottom right",
+          autoHideDelay: 3000
+        });
+        $.notify("Solicitud eliminada", "success", { position: "left" });
+        BuscarSolicitudes();
+      } else {
+        $.notify("Error al eliminar la solicitud", "warning", { position: "left" });
+        BuscarSolicitudes();
+      }
+    });
+  }
 //FUNCION QUE OBTIENE EL PARAMETRO PARA FILTRAR A TRAVÉS DE UN CAMBIO EN EL INPUT
 
 function filtrarPorCancha() {
