@@ -227,8 +227,11 @@ class Turno
     }
 //LADO USUARIO
     function mostrarTurnosPendientes($email){
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        $fechaActual=date('Y-m-d');
+        $horaActual=date('H');
         $con = ConexionBD::getConexion();
-        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 order by fecha,hora";
+        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' and fecha >='$fechaActual' and hora >'$horaActual' and estado=0 order by fecha,hora";
         $respuesta = $con->recuperar($sql);
         $id=0;
         //control de resultado
