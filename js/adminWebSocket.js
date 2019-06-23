@@ -23,6 +23,9 @@ function connect() {
 
         notificarNuevaSolicitud();
         break;
+      case "notificarCancelacionDeTurno":
+          notificarCancelacionDeTurno(mensaje.msg);
+        break;
       default:
         alert("LLego un comando no identificado: "+mensaje.comando);
       }
@@ -67,4 +70,22 @@ function notificarNuevaSolicitud(){
   $("#campanaSolicitudes").show();
   $("#campanaSolicitudes").addClass("animate-flicker");
 
+}
+
+
+/**
+ * notificarCancelacionDeTurno
+ * Muestra un mensaje de alerta en la esquina superior izquierda que un jugador cancelo un turno aprobado
+ * y se queda ahi hasta que se haga click
+ * 
+ * @param string mensaje 
+ */
+function notificarCancelacionDeTurno(mensaje){
+  //Mostramos Un cartel avisando que se cancelo un turno
+  $.notify.defaults({
+    globalPosition: "left top",
+    autoHide: false
+  });
+  $.notify(mensaje, "Warn", { position: "left" });
+  
 }

@@ -4,6 +4,22 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 class Turno
 {
+
+   /**
+    * darNombreApellidoDadoCiertoTurno
+    *Da el nombre apellido y contacto dado cierto turno confirmado id cancha, hora, y fecha son necesarios
+    * @param mixed $idCancha
+    * @param mixed $hora
+    * @param mixed $fecha
+    * @return void
+    */
+    function darNombreApellidoDadoCiertoTurno($idCancha,$hora,$fecha){
+        $con=ConexionBD::getConexion();
+        $sql="SELECT nombre,apellido,contacto FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE estado=1 and fecha='$fecha' and hora='$hora' and cancha_id_cancha='$idCancha';";
+        $respuesta = $con->recuperar($sql);
+        return $respuesta;
+
+    }
     //CONTROLAR TURNO PARA VER SI YA EXISTE
     function existeTurno($cancha, $fecha, $horario)
     {

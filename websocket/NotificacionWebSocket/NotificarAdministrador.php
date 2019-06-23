@@ -33,4 +33,32 @@ class NotificarAdministrador extends Notificar{
     }
 
 
+
+    /**
+     * notificarCancelacionDeTurno
+     *Envia una notificacion a todos los administradores de que se cancelo un turno que estaba reservado
+     *
+     * @param string $mensaje
+     * @return void
+     */
+    public function notificarCancelacionDeTurno($mensaje){
+        $bd = ConexionBD::getConexion();
+        //Tomamos el email de todos los administradores
+        $query = "SELECT email FROM usuario WHERE tipo_usuario = 1;";
+        $respuesta = $bd->recuperar_asociativo($query);
+
+        $list=array();
+        array_push($list,$mensaje);
+        foreach($respuesta as $user){
+            
+            array_push($list,$user);
+        }
+
+        $listStringJSON=json_encode($list);
+
+        $JSON= $this->darFormato("notificarCancelacionDeTurno",$listStringJSON);
+        $this->enviar($JSON);
+    }
+
+
 }

@@ -40,6 +40,9 @@ class Chat implements MessageComponentInterface {
                     case "notificarNuevaSolicitud":
                         $this->notificarNuevaSolicitud($mensaje->comando,$mensaje->msg);
                         break;
+                    case "notificarCancelacionDeTurno":
+                        $this->notificarCancelacionDeTurno($mensaje->comando,$mensaje->msg);
+                        break;
                     default:
                         echo "LLEGO un comando no reconocido: ".$mensaje->comando;
                 }
@@ -57,6 +60,46 @@ class Chat implements MessageComponentInterface {
 
         }
     }//Fin Analizar
+
+
+    /**
+     * notificarCancelacionDeTurno
+     * Notifica a todos los administradores que un jugador cancelo un turno aprobado. 
+     * Si no hay ningun administrador envia un email al primer administrador.
+     *
+     * @param string $comando 
+     * Contiene el comando que se enviara al admin.js
+     * @param array $mensajeYListaAdministradores
+     * Lista donde el primer elemento es el mensaje personalizado que debe mostrar admin.js
+     * y el resto del array es emails de administradores
+     * @return void
+     */
+    private function notificarCancelacionDeTurno($comando,$mensajeYListaAdministradores){
+        $listaEmail= array();
+        $listaEmail= json_decode($mensajeYListaAdministradores);
+        $mensajePersonalizado = array_shift($listaEmail);//quitamos primer elemento que es el mensaje personalizado
+        $algunAdminConectado=false;
+        foreach($listaEmail as $user){
+            //email de algun administrador, es un string.
+            $email=$user->email;
+            $conn=$this->obtenerConexion($email);
+            if($conn){
+                $respuesta = new \stdClass();
+                $respuesta->comando=$comando;
+                $respuesta->msg=$mensajePersonalizado;
+                $enviar=json_encode($respuesta);
+                $conn->send($enviar);
+                $algunAdminConectado=true;
+            }
+        }
+
+        if(!$algunAdminConectado){
+            //NO IMPLEMENTADO REQUIERE EMAIL
+            //Si no hay ningun administrador conectado, enviamos un email.
+            echo "Seccion no implementada notificarCancelacionDeTurno";
+        }
+    }
+
 
 
     /**

@@ -50,7 +50,7 @@ $("#cargarTurno").click(function () {
 
     },
     function (data, status) {
-      alert(data);
+      
       if (data == 1) {
         $.notify.defaults({ globalPosition: 'bottom right', autoHideDelay: 3000 });
         $.notify("Turno cargado", "success", { position: 'left' });
@@ -214,7 +214,7 @@ function confirmarSolicitudDeTurno(email, hora, id_cancha, fecha) {
       fecha: fecha
     },
     function (data, status) {
-      alert(data);
+      
       if (data == 1) {
         $.notify.defaults({
           globalPosition: "bottom right",
@@ -462,7 +462,7 @@ function updateModal() {
         }
       }
       else {
-        alert(data);
+        
         var horas = JSON.parse(data);
         var existe = false;
 
