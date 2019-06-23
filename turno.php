@@ -399,7 +399,7 @@ $id=0;
    function mostrarTurnosConfirmados($email)
    {
        $con = ConexionBD::getConexion();
-       $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=1 ";
+       $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=1 order by fecha,hora";
        $respuesta = $con->recuperar($sql);
        //control de resultado
        if (empty($respuesta)) {
