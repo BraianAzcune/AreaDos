@@ -480,10 +480,10 @@ class Turno
                   </div>
                       <p class='card-text' style='font-size:17px;'>Turno Confirmado </p>";
                 if ($fechaActual > $turno_pendiente[2]) {
-                    echo "<a href='#' class='card-link btn btn-info' style='font-weight:bold;'>Turno Finalizado</a>";
+                    echo "<a href='#' class='card-link btn btn-info disabled' style='font-weight:bold;'>Turno Finalizado</a>";
                 } else if ($fechaActual == $turno_pendiente[2]) {
                     if ($horaActual >= $turno_pendiente[1]) {
-                        echo "<a href='#' class='card-link btn btn-info' style='font-weight:bold;'>Turno Finalizado</a>";
+                        echo "<a href='#' class='card-link btn btn-info disabled' style='font-weight:bold;'>Turno Finalizado</a>";
                     } else {
                         echo "<a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style ='font-weight:bold;'>Cancelar Turno</a>";
                     }
