@@ -43,7 +43,7 @@ class Turno
     function eliminarTurno($id, $hora, $fecha)
     {
         $con = ConexionBD::getConexion();
-        $sql = "DELETE FROM usuario_x_cancha WHERE cancha_id_cancha='$id' AND hora='$hora' AND fecha='$fecha' ";
+        $sql = "DELETE FROM usuario_x_cancha WHERE cancha_id_cancha='$id' AND hora='$hora' AND fecha='$fecha' AND estado=1";
         $operacion = $con->insertar($sql);
         return $operacion;
     }
