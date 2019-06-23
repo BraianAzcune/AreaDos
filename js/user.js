@@ -151,7 +151,7 @@ function RealizarSolicitud(hora) {
 
 $("#TurnosPendientes").click(function () {
   // stopSetInterval(id_intervalo);
-  $("#contenedor_canchasYfecha").hide();
+  $("#turnos").hide();
 
 
   $(".contenedor").empty();
@@ -171,7 +171,7 @@ $("#TurnosPendientes").click(function () {
 $("#ver_turnos").click(function () {
   $(".contenedor").empty();
 
-  $("#contenedor_canchasYfecha").show();
+  $("#turnos").show();
 
   seleccionarCancha();
 });
@@ -230,7 +230,7 @@ $("#TurnosCorfirmados").click(function () {
   //Ocultamos la campanita que notifica que hay un turno Confirmado sin ver
   $("#campanaMisTurnos").hide();
   // stopSetInterval(id_intervalo);
-  $("#contenedor_canchasYfecha").hide();
+  $("#turnos").hide();
 
 
   $(".contenedor").empty();
