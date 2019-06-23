@@ -83,7 +83,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" style="font-weight:bold; font-size:2.3em;">Administración de Área Dos</a>
+                        <a class="navbar-brand" style="font-weight:bold; font-size:1.6em;">Administración</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
