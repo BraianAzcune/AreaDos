@@ -31,7 +31,8 @@ class Turno
     }
 
     //CONFIRMAR SOLICITUD DE TURNO
-    function  confirmarSolicitudDeTurno($email, $hora, $cancha, $fecha){
+    function  confirmarSolicitudDeTurno($email, $hora, $cancha, $fecha)
+    {
         $con = ConexionBD::getConexion();
         $sql = "UPDATE usuario_x_cancha SET estado=1 WHERE usuario_email='$email' AND hora='$hora' AND cancha_id_cancha='$cancha' AND fecha='$fecha';";
         $resultado = $con->insertar($sql);
@@ -48,7 +49,7 @@ class Turno
         return $operacion;
     }
     //ELIMINAR SOLICITUD
-    function eliminarSolicitud($email,$id, $hora, $fecha)
+    function eliminarSolicitud($email, $id, $hora, $fecha)
     {
         $con = ConexionBD::getConexion();
         $sql = "DELETE FROM usuario_x_cancha WHERE usuario_email='$email' AND cancha_id_cancha='$id' AND hora='$hora' AND fecha='$fecha' AND estado=0";
@@ -56,8 +57,9 @@ class Turno
         return $operacion;
     }
     //MOSTRAR TODOS LOS TURNOS
-    function mostrarTurnos($fecha){
-        $muestra_color=null;
+    function mostrarTurnos($fecha)
+    {
+        $muestra_color = null;
         $color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
@@ -65,12 +67,12 @@ class Turno
 
         $respuesta = $con->recuperar($sql);
         //control de resultado
-        if (empty($respuesta)){ //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
+        if (empty($respuesta)) { //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
             echo "<div style='display: flex; justify-content:center;'>
             <h2 style='font-weight:bold; color: #2a5788'>No hay turnos para esta fecha<h2>
     </div>";
-            } else {
-                        echo "<div class='table-responsive table-hover'>
+        } else {
+            echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
                             <tr>
@@ -87,14 +89,14 @@ class Turno
             foreach ($respuesta as $turno) {
                 $color = $turno[1];
                 if ($color == 1) {
-                      $color = "#EA2027";
-                      $muestra_color="Roja";
+                    $color = "#EA2027";
+                    $muestra_color = "Roja";
                 } elseif ($color == 2) {
                     $color = "#009432";
-                    $muestra_color="Verde";
+                    $muestra_color = "Verde";
                 } else {
                     $color = "#0652DD";
-                    $muestra_color="Azul";
+                    $muestra_color = "Azul";
                 }
                 echo "<tr><th scope='row' style='font-size:18px; color:$color'>$turno[0]</th>";
                 echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
@@ -111,7 +113,8 @@ class Turno
     }
 
     //MOSTRAR TURNOS POR COLOR DE CANCHA
-    function mostrarTurnosPorCancha($fecha, $color_cancha){
+    function mostrarTurnosPorCancha($fecha, $color_cancha)
+    {
         $color = null;
         $muestra_color = null;
         $respuesta = array();
@@ -120,10 +123,10 @@ class Turno
         $respuesta = $con->recuperar($sql);
         //control de resultado
         if (empty($respuesta)) //si esta vacio el array entonces quiere decir que no hay turnos en la fecha
-            {
-                return -1;
-            } else {
-                echo "<div class='table-responsive table-hover'>
+        {
+            return -1;
+        } else {
+            echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
                             <tr>
@@ -140,14 +143,14 @@ class Turno
             foreach ($respuesta as $turno) {
                 $color = $turno[1];
                 if ($color == 1) {
-                      $color = "#EA2027";
-                      $muestra_color="Roja";
+                    $color = "#EA2027";
+                    $muestra_color = "Roja";
                 } elseif ($color == 2) {
                     $color = "#009432";
-                    $muestra_color="Verde";
+                    $muestra_color = "Verde";
                 } else {
                     $color = "#0652DD";
-                    $muestra_color="Azul";
+                    $muestra_color = "Azul";
                 }
                 // echo "<tr><th scope='row' style='font-size:18px;color:$color'>$turno[2]</th>";
                 // echo "<td><a style='cursor:pointer;font-size:18px; color:$color' class='float-left'>$turno[0]</a></td>";
@@ -171,7 +174,8 @@ class Turno
         }
     }
 
-    function mostrarTurnosPorCanchaUser($email,$fecha, $color_cancha){
+    function mostrarTurnosPorCanchaUser($email, $fecha, $color_cancha)
+    {
         $color = null;
         $respuesta = array();
         $con = ConexionBD::getConexion();
@@ -206,16 +210,16 @@ class Turno
                 if ($horario == $hora[0]) {
                     $bandera = 1;
                     $estado = $hora[1];
-                    $emailObtenido=$hora[2];
+                    $emailObtenido = $hora[2];
                 }
             }
-            if ($bandera == 1 AND $estado==1) {
-                if($email == $emailObtenido){
+            if ($bandera == 1 and $estado == 1) {
+                if ($email == $emailObtenido) {
                     echo "<button type='button' class='btn btn-danger disabled' data-dismiss='modal' id='$horario'>Reservado</button>";
-                }else{
+                } else {
                     echo "<button type='button' class='btn btn-secondary disabled' data-dismiss='modal' id='$horario'>Ocupado</button>";
                 }
-            } else if ($bandera == 1 and $estado == 0 and $email==$emailObtenido) {
+            } else if ($bandera == 1 and $estado == 0 and $email == $emailObtenido) {
                 echo "<button type='button' class='btn btn-info disabled' data-dismiss='modal'  style='margin:0' id='$horario'>Pendiente</button>";
             } else {
                 echo "<button type='button' class='btn btn-success' data-dismiss='modal'  style='margin:0' id='$horario' onclick='RealizarSolicitud($horario)'>Reservar</button>";
@@ -225,22 +229,23 @@ class Turno
         }
         echo "</div></td></tr><tr><td></td></tr></tbody></div>";
     }
-//LADO USUARIO
-    function mostrarTurnosPendientes($email){
+    //LADO USUARIO
+    function mostrarTurnosPendientes($email)
+    {
         date_default_timezone_set("America/Argentina/Buenos_Aires");
-        $fechaActual=date('Y-m-d');
-        $horaActual=date('H');
+        $fechaActual = date('Y-m-d');
+        $horaActual = date('H');
         $con = ConexionBD::getConexion();
         $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' and fecha >='$fechaActual' and hora >'$horaActual' and estado=0 order by fecha,hora";
         $respuesta = $con->recuperar($sql);
-        $id=0;
+        $id = 0;
         //control de resultado
-        if (empty($respuesta)){
+        if (empty($respuesta)) {
             echo "<div style='display: flex; justify-content:center;'>
                         <h2 style='font-weight:bold; color: #2a5788'>No hay ningun turno pendiente<h2>
                 </div>";
-        }else{
-            foreach ($respuesta as $turno_pendiente){
+        } else {
+            foreach ($respuesta as $turno_pendiente) {
                 echo "<div id=$id class='card'>
                     <div class='card-body'>
                        <div class='d-flex'>
@@ -264,18 +269,19 @@ class Turno
             }
         }
     }
-    function mostrarTurnosPendientesPorCancha($email,$fecha,$color_cancha){////esto anda como el orto
+    function mostrarTurnosPendientesPorCancha($email, $fecha, $color_cancha)
+    { ////esto anda como el orto
         $con = ConexionBD::getConexion();
         $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=0 ";
         $respuesta = $con->recuperar($sql);
 
         //control de resultado
-        if (empty($respuesta)){
+        if (empty($respuesta)) {
             echo "<div style='display: flex; justify-content:center;'>
                         <h2 style='font-weight:bold; color: #2a5788'>No hay ningun turno pendiente<h2>
                 </div>";
-        }else{
-            foreach ($respuesta as $turno_pendiente){
+        } else {
+            foreach ($respuesta as $turno_pendiente) {
                 echo "<div class='card'>
                     <div class='card-body'>
                        <div class='d-flex'>
@@ -302,18 +308,19 @@ class Turno
 
     //el administrador usa este metodo para obtener todos los turnos no confirmados, (los que tienen estado=0)
     //dada cierta fecha
-    function mostrarSolicitudes($fecha){
-        $muestra_color=null;
+    function mostrarSolicitudes($fecha)
+    {
+        $muestra_color = null;
         $color = null;
         $con = ConexionBD::getConexion();
         $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora,usuario.email FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND usuario_x_cancha.estado=0;";
         $respuesta = $con->recuperar($sql);
         //control de resultado
-        if (empty($respuesta)){
+        if (empty($respuesta)) {
             echo "<div style='display: flex; justify-content:center;'>
                         <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
                 </div>";
-        }else{
+        } else {
             echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
@@ -330,14 +337,14 @@ class Turno
             foreach ($respuesta as $solicitud) {
                 $color = $solicitud[3];
                 if ($color == 1) {
-                      $color = "#EA2027";
-                      $muestra_color="Roja";
+                    $color = "#EA2027";
+                    $muestra_color = "Roja";
                 } elseif ($color == 2) {
                     $color = "#009432";
-                    $muestra_color="Verde";
+                    $muestra_color = "Verde";
                 } else {
                     $color = "#0652DD";
-                    $muestra_color="Azul";
+                    $muestra_color = "Azul";
                 }
                 echo "<tr><th scope='row' style='font-size:18px; color:$color'>$solicitud[4]</th>";
                 echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
@@ -354,26 +361,27 @@ class Turno
             //$solicitud[5]-> email
             //$solicitud[4]-> hora
             //$solicitud[3]-> id_cancha
-            
+
         }
-            /*foreach ($respuesta as $solicitud){
+        /*foreach ($respuesta as $solicitud){
                 echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
                 contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
     }*/
     }
-    function mostrarSolicitudesPorCancha($fecha,$color_cancha){
-        $muestra_color=null;
+    function mostrarSolicitudesPorCancha($fecha, $color_cancha)
+    {
+        $muestra_color = null;
         $color = null;
         $con = ConexionBD::getConexion();
         $sql = "SELECT nombre,apellido,contacto,cancha_id_cancha,hora,usuario.email FROM usuario_x_cancha INNER JOIN usuario ON usuario_x_cancha.usuario_email=usuario.email WHERE fecha='$fecha' AND cancha_id_cancha='$color_cancha' AND usuario_x_cancha.estado=0;";
         $respuesta = $con->recuperar($sql);
         //control de resultado
-        if (empty($respuesta)){
+        if (empty($respuesta)) {
             echo "<div style='display: flex; justify-content:center;'>
                         <h2 style='font-weight:bold; color: #2a5788'>NO HAY SOLICITUDES<h2>
                 </div>";
-        }else{
+        } else {
             echo "<div class='table-responsive table-hover'>
                     <table class='table'>
                         <thead>
@@ -390,14 +398,14 @@ class Turno
             foreach ($respuesta as $solicitud) {
                 $color = $solicitud[3];
                 if ($color == 1) {
-                      $color = "#EA2027";
-                      $muestra_color="Roja";
+                    $color = "#EA2027";
+                    $muestra_color = "Roja";
                 } elseif ($color == 2) {
                     $color = "#009432";
-                    $muestra_color="Verde";
+                    $muestra_color = "Verde";
                 } else {
                     $color = "#0652DD";
-                    $muestra_color="Azul";
+                    $muestra_color = "Azul";
                 }
                 echo "<tr><th scope='row' style='font-size:18px; color:$color'>$solicitud[4]</th>";
                 echo "<td style='font-size:18px; color:$color'>$muestra_color</td>";
@@ -414,9 +422,9 @@ class Turno
             //$solicitud[5]-> email
             //$solicitud[4]-> hora
             //$solicitud[3]-> id_cancha
-            
+
         }
-            /*foreach ($respuesta as $solicitud){
+        /*foreach ($respuesta as $solicitud){
                 echo "nombre= $solicitud[0] / apellido= $solicitud[1] / 
                 contacto=$solicitud[2] / idCancha= $solicitud[3] / hora= $solicitud[4]";
                 //INSERTAR ACA EL DIV MOSTRANDO LAS SOLICITUDES
@@ -424,21 +432,24 @@ class Turno
     }
 
 
-   //-----------------LADO USUARIO------------
-   function mostrarTurnosConfirmados($email)
-   {
-       $con = ConexionBD::getConexion();
-       $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=1 order by fecha,hora";
-       $respuesta = $con->recuperar($sql);
-       //control de resultado
-       if (empty($respuesta)) {
-        echo "<div style='display: flex; justify-content:center;'>
+    //-----------------LADO USUARIO------------
+    function mostrarTurnosConfirmados($email)
+    {
+        $con = ConexionBD::getConexion();
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        $fechaActual = date('Y-m-d');
+        $horaActual = date('H');
+        $sql = "SELECT cancha_id_cancha,hora,fecha,color FROM usuario_x_cancha,cancha WHERE id_cancha=cancha_id_cancha and usuario_email='$email' AND estado=1 order by fecha desc ,hora asc";
+        $respuesta = $con->recuperar($sql);
+        //control de resultado
+        if (empty($respuesta)) {
+            echo "<div style='display: flex; justify-content:center;'>
                 <h2 style='font-weight:bold; color: #2a5788'>No tienes confirmado ningun turno<h2>
                 </div>";
-       } else {
-           $id = 0;
-           foreach ($respuesta as $turno_pendiente) {
-               echo "<div class='card' id=$id>
+        } else {
+            $id = 0;
+            foreach ($respuesta as $turno_pendiente) {
+                echo "<div class='card' id=$id>
               <div class='card-body'>
                  <div class='d-flex'>
                       <div class='p-2 mr-auto'>
@@ -451,12 +462,22 @@ class Turno
                           <p id='' class='card-title'>Cancha: $turno_pendiente[3]</p>
                       </div>
                   </div>
-                      <p class='card-text' style='font-size:17px;'>Turno Confirmado </p>
-                      <a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style='font-weight:bold;'>Cancelar Turno</a>
-              </div>
+                      <p class='card-text' style='font-size:17px;'>Turno Confirmado </p>";
+                if ($fechaActual > $turno_pendiente[2]) {
+                    echo "<a href='#' class='card-link btn btn-info' style='font-weight:bold;'>Turno Finalizado</a>";
+                } else if ($fechaActual == $turno_pendiente[2]) {
+                    if ($horaActual >= $turno_pendiente[1]) {
+                        echo "<a href='#' class='card-link btn btn-info' style='font-weight:bold;'>Turno Finalizado</a>";
+                    } else {
+                        echo "<a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style ='font-weight:bold;'>Cancelar Turno</a>";
+                    }
+                } else {
+                    echo "<a href='#' onclick=eliminar_turno($turno_pendiente[0],$turno_pendiente[1],'$turno_pendiente[2]',$id) class='card-link btn btn-danger' style ='font-weight:bold;'>Cancelar Turno</a>";
+                }
+                echo "</div>
           </div>";
-               $id++;
-           }
-       }
-   }
+                $id++;
+            }
+        }
+    }
 }
