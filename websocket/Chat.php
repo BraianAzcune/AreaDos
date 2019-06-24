@@ -6,14 +6,16 @@
 namespace MyApp;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+require_once ("../PHPMailer/mailAdmin.php");
 
 class Chat implements MessageComponentInterface {
     protected $clients;
     protected $clave;
-
+    protected $mail;
 
     public function __construct() {
         $this->clients = new \SplObjectStorage();
+        $this->mail=new \mailAdmin();
         echo "Server WebSocket iniciado\n";
         echo "No cerrar esta ventana\n";
         $this->clave="ClaveParaEvitarQueUnUsuarioHagaMacanas  1239d12je09321u9d2138120831yr0fd134__^1¡23123";
@@ -94,9 +96,7 @@ class Chat implements MessageComponentInterface {
         }
 
         if(!$algunAdminConectado){
-            //NO IMPLEMENTADO REQUIERE EMAIL
-            //Si no hay ningun administrador conectado, enviamos un email.
-            echo "Seccion no implementada notificarCancelacionDeTurno";
+            $this->mail->enviar($listaEmail[0]->email,"Cancelaron un turno",$mensajePersonalizado);
         }
     }
 
@@ -131,6 +131,7 @@ class Chat implements MessageComponentInterface {
             //NO IMPLEMENTADO REQUIERE EMAIL
             //Si no hay ningun administrador conectado, enviamos un email.
             echo "Seccion no implementada notificarNuevaSolicitud";
+            $this->mail->enviar($listaEmail[0]->email,"Nueva Solicitud de turno","Tiene una nueva solicitud de turno sin revisar, vaya a la seccion 'Solicitudes' para mas detalles");
         }
 
     }
@@ -170,6 +171,7 @@ class Chat implements MessageComponentInterface {
         }else{
             //NO IMPLEMENTADO
             //Se deberia enviar email, o decirle a notificarUsuario que no se pudo, y que el envie el email
+            $this->mail->enviar($emailUsuario,"Turno Confirmado","Tiene un turno de Área Dos confirmado, vaya a la pagina web en la seccion 'Mis Turnos' para mas informacion");
         }
     }
     
